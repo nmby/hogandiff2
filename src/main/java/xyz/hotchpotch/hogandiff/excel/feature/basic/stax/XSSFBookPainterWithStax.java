@@ -30,6 +30,7 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import xyz.hotchpotch.hogandiff.ApplicationException;
 import xyz.hotchpotch.hogandiff.excel.BookPainter;
 import xyz.hotchpotch.hogandiff.excel.BookType;
 import xyz.hotchpotch.hogandiff.excel.ExcelHandlingException;
@@ -253,12 +254,8 @@ public class XSSFBookPainterWithStax implements BookPainter {
         } catch (ExcelHandlingException e) {
             throw e;
         } catch (Exception e) {
-            // TODO 自動生成された catch ブロック
-            e.printStackTrace();
+            throw new ExcelHandlingException(e);
         }
-        
-        // TODO 自動生成されたメソッド・スタブ
-        
     }
     
     /**

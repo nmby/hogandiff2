@@ -1,4 +1,4 @@
-package xyz.hotchpotch.hogandiff.excel.feature.common.usermodel;
+package xyz.hotchpotch.hogandiff.excel.feature.basic.usermodel;
 
 import java.io.IOException;
 import java.io.InputStream;
