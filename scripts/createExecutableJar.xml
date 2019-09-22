@@ -8,42 +8,44 @@
 	<property name="dir.userlib.poi-4.1.0" value="${dir.userlib}/poi-4.1.0"/>
 	<property name="dir.userlib.javafx-13" value="${dir.userlib}/javafx-sdk-13"/>
 	<property name="dir.buildfile" value="."/>
-	<property name="dir.workspace" value="${dir.buildfile}/../.."/>
-	<property name="dir.jarfile" value="${dir.workspace}/hogandiff3/build/jar"/>
-    <property name="dir.product" value="${dir.workspace}/hogandiff3/build/方眼Diff-${app.version}"/>
+	<property name="dir.pjhome" value="${dir.buildfile}/.."/>
+	<property name="dir.jarfile" value="${dir.pjhome}/build/jar"/>
+    <property name="dir.product" value="${dir.pjhome}/build/方眼Diff-${app.version}"/>
 	<property name="dir.lib" value="${dir.product}/lib"/>
-	<property name="dir.lib.poi-4.1.0" value="${dir.lib}/poi-4.1.0"/>
-	<property name="dir.lib.javafx-13" value="${dir.lib}/javafx-13"/>
+	<property name="dir.lib.poi" value="${dir.lib}/poi-4.1.0"/>
+	<property name="dir.lib.javafx" value="${dir.lib}/javafx-13"/>
 	<target name="create_run_jar">
 		<jar destfile="${dir.jarfile}/xyz.hotchpotch.hogandiff.jar">
 			<manifest>
 				<attribute name="Main-Class" value="xyz.hotchpotch.hogandiff.MainApp"/>
 				<attribute name="Class-Path" value=". lib/poi-4.1.0/poi-4.1.0.jar lib/poi-4.1.0/poi-ooxml-4.1.0.jar lib/poi-4.1.0/poi-ooxml-schemas-4.1.0.jar lib/poi-4.1.0/lib/commons-codec-1.12.jar lib/poi-4.1.0/lib/commons-collections4-4.3.jar lib/poi-4.1.0/lib/commons-compress-1.18.jar lib/poi-4.1.0/ooxml-lib/xmlbeans-3.1.0.jar lib/javafx-13/lib/javafx.base.jar lib/javafx-13/lib/javafx.controls.jar lib/javafx-13/lib/javafx.fxml.jar lib/javafx-13/lib/javafx.graphics.jar lib/javafx-13/lib/javafx.media.jar lib/javafx-13/lib/javafx.swing.jar lib/javafx-13/lib/javafx.web.jar lib/javafx-13/lib/javafx-swt.jar "/>
 			</manifest>
-			<fileset dir="${dir.workspace}/hogandiff3/bin/main"/>
+			<fileset dir="${dir.pjhome}/bin/main"/>
 		</jar>
 		<delete dir="${dir.product}/lib"/>
 		<mkdir dir="${dir.product}/lib"/>
-		<copy file="${dir.userlib.poi-4.1.0}/LICENSE" todir="${dir.lib.poi-4.1.0}"/>
-		<copy file="${dir.userlib.poi-4.1.0}/NOTICE" todir="${dir.lib.poi-4.1.0}"/>
-		<copy file="${dir.userlib.poi-4.1.0}/poi-4.1.0.jar" todir="${dir.lib.poi-4.1.0}"/>
-		<copy file="${dir.userlib.poi-4.1.0}/poi-ooxml-4.1.0.jar" todir="${dir.lib.poi-4.1.0}"/>
-		<copy file="${dir.userlib.poi-4.1.0}/poi-ooxml-schemas-4.1.0.jar" todir="${dir.lib.poi-4.1.0}"/>
-		<copy file="${dir.userlib.poi-4.1.0}/lib/commons-codec-1.12.jar" todir="${dir.lib.poi-4.1.0}/lib"/>
-		<copy file="${dir.userlib.poi-4.1.0}/lib/commons-collections4-4.3.jar" todir="${dir.lib.poi-4.1.0}/lib"/>
-		<copy file="${dir.userlib.poi-4.1.0}/lib/commons-compress-1.18.jar" todir="${dir.lib.poi-4.1.0}/lib"/>
-		<copy file="${dir.userlib.poi-4.1.0}/ooxml-lib/xmlbeans-3.1.0.jar" todir="${dir.lib.poi-4.1.0}/ooxml-lib"/>
-		<copy todir="${dir.lib.javafx-13}/legal">
+		<copy file="${dir.pjhome}/README.md" todir="${dir.product}"/>
+		<copy file="${dir.pjhome}/LICENSE" todir="${dir.product}"/>
+		<copy file="${dir.userlib.poi-4.1.0}/LICENSE" todir="${dir.lib.poi}"/>
+		<copy file="${dir.userlib.poi-4.1.0}/NOTICE" todir="${dir.lib.poi}"/>
+		<copy file="${dir.userlib.poi-4.1.0}/poi-4.1.0.jar" todir="${dir.lib.poi}"/>
+		<copy file="${dir.userlib.poi-4.1.0}/poi-ooxml-4.1.0.jar" todir="${dir.lib.poi}"/>
+		<copy file="${dir.userlib.poi-4.1.0}/poi-ooxml-schemas-4.1.0.jar" todir="${dir.lib.poi}"/>
+		<copy file="${dir.userlib.poi-4.1.0}/lib/commons-codec-1.12.jar" todir="${dir.lib.poi}/lib"/>
+		<copy file="${dir.userlib.poi-4.1.0}/lib/commons-collections4-4.3.jar" todir="${dir.lib.poi}/lib"/>
+		<copy file="${dir.userlib.poi-4.1.0}/lib/commons-compress-1.18.jar" todir="${dir.lib.poi}/lib"/>
+		<copy file="${dir.userlib.poi-4.1.0}/ooxml-lib/xmlbeans-3.1.0.jar" todir="${dir.lib.poi}/ooxml-lib"/>
+		<copy todir="${dir.lib.javafx}/legal">
 			<fileset dir="${dir.userlib.javafx-13}/legal">
 			</fileset>
 		</copy>
-		<copy file="${dir.userlib.javafx-13}/lib/javafx.base.jar" todir="${dir.lib.javafx-13}/lib"/>
-		<copy file="${dir.userlib.javafx-13}/lib/javafx.controls.jar" todir="${dir.lib.javafx-13}/lib"/>
-		<copy file="${dir.userlib.javafx-13}/lib/javafx.fxml.jar" todir="${dir.lib.javafx-13}/lib"/>
-		<copy file="${dir.userlib.javafx-13}/lib/javafx.graphics.jar" todir="${dir.lib.javafx-13}/lib"/>
-		<copy file="${dir.userlib.javafx-13}/lib/javafx.media.jar" todir="${dir.lib.javafx-13}/lib"/>
-		<copy file="${dir.userlib.javafx-13}/lib/javafx.swing.jar" todir="${dir.lib.javafx-13}/lib"/>
-		<copy file="${dir.userlib.javafx-13}/lib/javafx.web.jar" todir="${dir.lib.javafx-13}/lib"/>
-		<copy file="${dir.userlib.javafx-13}/lib/javafx-swt.jar" todir="${dir.lib.javafx-13}/lib"/>
+		<copy file="${dir.userlib.javafx-13}/lib/javafx.base.jar" todir="${dir.lib.javafx}/lib"/>
+		<copy file="${dir.userlib.javafx-13}/lib/javafx.controls.jar" todir="${dir.lib.javafx}/lib"/>
+		<copy file="${dir.userlib.javafx-13}/lib/javafx.fxml.jar" todir="${dir.lib.javafx}/lib"/>
+		<copy file="${dir.userlib.javafx-13}/lib/javafx.graphics.jar" todir="${dir.lib.javafx}/lib"/>
+		<copy file="${dir.userlib.javafx-13}/lib/javafx.media.jar" todir="${dir.lib.javafx}/lib"/>
+		<copy file="${dir.userlib.javafx-13}/lib/javafx.swing.jar" todir="${dir.lib.javafx}/lib"/>
+		<copy file="${dir.userlib.javafx-13}/lib/javafx.web.jar" todir="${dir.lib.javafx}/lib"/>
+		<copy file="${dir.userlib.javafx-13}/lib/javafx-swt.jar" todir="${dir.lib.javafx}/lib"/>
 	</target>
 </project>
