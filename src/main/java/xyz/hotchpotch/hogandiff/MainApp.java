@@ -31,7 +31,7 @@ public class MainApp extends Application {
     // [static members] ********************************************************
     
     /** このアプリケーションのバージョン */
-    private static final String VERSION = "v0.5.0";
+    private static final String VERSION = "v0.5.1";
     
     /** プロパティファイルの相対パス */
     private static final Path APP_PROP_PATH = Path.of("hogandiff.properties");
