@@ -73,7 +73,7 @@ public class BookLoaderWithPoiUserApi implements BookLoader {
      * @throws ExcelHandlingException
      *              処理に失敗した場合
      */
-    // TODO: 上記のバグを改修する。（できるのか？）
+    // FIXME: [No.1 シート識別不正 - usermodel] 上記のバグを改修する。（できるのか？）
     //
     // 例外カスケードのポリシーについて：
     // ・プログラミングミスに起因するこのメソッドの呼出不正は RuntimeException の派生でレポートする。

@@ -103,7 +103,7 @@ class HSSFSheetLoaderWithPoiEventApiTest {
         assertThrows(
                 ExcelHandlingException.class,
                 () -> testee.loadCells(test1_xls, "A2_グラフ"));
-        // TODO: どういう訳かダイアログシートとワークシートを見分けられない。
+        // FIXME: [No.1 シート識別不正 - usermodel] どういう訳かダイアログシートとワークシートを見分けられない。
         //assertThrows(
         //        ExcelHandlingException.class,
         //        () -> testee.loadCells(test1_xls, "A3_ダイアログ"));
@@ -123,7 +123,7 @@ class HSSFSheetLoaderWithPoiEventApiTest {
     void testLoadCells_例外系_チェック例外2() {
         SheetLoader<String> testee = HSSFSheetLoaderWithPoiEventApi.of(false);
         
-        // TODO: 現時点では、.xls 形式からの数式文字列抽出はサポート対象外。
+        // FIXME: [No.4 数式サポート改善] 現時点では、.xls 形式からの数式文字列抽出はサポート対象外。
         assertThrows(
                 ExcelHandlingException.class,
                 () -> testee.loadCells(test3_xls, "A_バリエーション"));
@@ -201,7 +201,7 @@ class HSSFSheetLoaderWithPoiEventApiTest {
         
         assertEquals(
                 List.of(
-                        // TODO: 日付と時刻が数値フォーマットで取得されてしまう。
+                        // FIXME: [No.5 日付と時刻の扱い改善] 日付と時刻が数値フォーマットで取得されてしまう。
                         CellReplicaImpl.of(13, 2, "日付"),
                         //CellReplicaImpl.of(13, 3, "2019/7/28"),
                         CellReplicaImpl.of(13, 3, "43674"),
@@ -244,7 +244,7 @@ class HSSFSheetLoaderWithPoiEventApiTest {
         
         assertEquals(
                 List.of(
-                        // TODO: 日付と時刻が数値フォーマットで取得されてしまう。
+                        // FIXME: [No.5 日付と時刻の扱い改善] 日付と時刻が数値フォーマットで取得されてしまう。
                         CellReplicaImpl.of(28, 2, "数式（日付）"),
                         //CellReplicaImpl.of(28, 3, "2019/7/28"),
                         CellReplicaImpl.of(28, 3, "43674"),
@@ -258,7 +258,7 @@ class HSSFSheetLoaderWithPoiEventApiTest {
     void testLoadCells_正常系3_バリエーション_数式抽出() throws ExcelHandlingException {
         SheetLoader<String> testee = HSSFSheetLoaderWithPoiEventApi.of(false);
         
-        // TODO: 現時点では、.xls 形式からの数式文字列抽出はサポート対象外。
+        // FIXME: [No.4 数式サポート改善] 現時点では、.xls 形式からの数式文字列抽出はサポート対象外。
         assertThrows(
                 ExcelHandlingException.class,
                 () -> testee.loadCells(test3_xls, "A_バリエーション"));

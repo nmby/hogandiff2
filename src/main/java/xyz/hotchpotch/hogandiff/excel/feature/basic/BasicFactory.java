@@ -88,7 +88,7 @@ public class BasicFactory implements Factory<String> {
                     () -> BookLoaderWithPoiUserApi.of(targetSheetTypes)));
         
         case XLSB:
-            // TODO: support .xlsb books
+            // FIXME: [No.2 .xlsbのサポート]
             throw new UnsupportedOperationException(".xlsb 形式はサポート対象外です。");
             
         default:
@@ -141,7 +141,7 @@ public class BasicFactory implements Factory<String> {
                     () -> SheetLoaderWithPoiUserApi.of(converter)));
         
         case XLSB:
-            // TODO: support .xlsb books
+            // FIXME: [No.2 .xlsbのサポート]
             throw new UnsupportedOperationException(".xlsb 形式はサポート対象外です。");
             
         default:
@@ -186,7 +186,7 @@ public class BasicFactory implements Factory<String> {
         switch (bookType) {
         case XLS:
             return CombinedBookPainter.of(List.of(
-                    // TODO: 形式特化型ペインターも実装して追加する
+                    // FIXME: [No.3 着色関連] 形式特化型ペインターも実装して追加する
                     () -> BookPainterWithPoiUserApi.of(redundantColor, diffColor)));
         
         case XLSX:
@@ -196,7 +196,7 @@ public class BasicFactory implements Factory<String> {
                     () -> BookPainterWithPoiUserApi.of(redundantColor, diffColor)));
         
         case XLSB:
-            // TODO: support .xlsb books
+            // FIXME: [No.2 .xlsbのサポート]
             throw new UnsupportedOperationException(".xlsb 形式はサポート対象外です。");
             
         default:

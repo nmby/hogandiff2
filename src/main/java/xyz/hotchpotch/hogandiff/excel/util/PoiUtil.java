@@ -139,7 +139,7 @@ public class PoiUtil {
      * @throws NullPointerException {@code sheet} が {@code null} の場合
      */
     // このロジックで合ってるのかはさっぱり分からん
-    // TODO: 識別精度を上げたい...
+    // FIXME: [No.1 シート識別不正 - usermodel] 識別精度を上げたい...
     public static Set<SheetType> possibleTypes(Sheet sheet) {
         Objects.requireNonNull(sheet, "sheet");
         
@@ -160,13 +160,13 @@ public class PoiUtil {
             HSSFSheet hSheet = (HSSFSheet) sheet;
             try {
                 if (hSheet.getDialog()) {
-                    // TODO: ダイアログシートであっても、どういう訳かここに入らない
+                    // FIXME: [No.1 シート識別不正 - usermodel] ダイアログシートであっても、どういう訳かここに入らない
                     return EnumSet.of(SheetType.DIALOG_SHEET);
                 }
             } catch (NullPointerException e) {
                 // HSSFSheet#getDialog() はたまにヌルポを吐くので受け止める。
             }
-            // TODO: ダイアログシートの場合もここに到達してしまうので、やむを得ず含めることにする。
+            // FIXME: [No.1 シート識別不正 - usermodel] ダイアログシートの場合もここに到達してしまうので、やむを得ず含めることにする。
             return EnumSet.of(
                     SheetType.WORKSHEET,
                     SheetType.CHART_SHEET,
@@ -208,7 +208,7 @@ public class PoiUtil {
             style.setBottomBorderColor(automatic);
             style.setLeftBorderColor(automatic);
             style.setRightBorderColor(automatic);
-            // TODO: 斜めの罫線に対する処理が必要
+            // FIXME: [No.3 着色関連] 斜めの罫線に対する処理が必要
             
             // パターンは残したまま、背景色＝白、前景色＝黒にする
             if (style.getFillPattern() == FillPatternType.SOLID_FOREGROUND) {
@@ -218,18 +218,18 @@ public class PoiUtil {
                 style.setFillForegroundColor(null);
                 style.setFillBackgroundColor(null);
             }
-            // TODO: グラデーション背景色の消し方が分からない
+            // FIXME: [No.3 着色関連] グラデーション背景色の消し方が分からない
         });
         
         // フォントに対する処理
         IntStream.range(0, book.getNumberOfFontsAsInt()).mapToObj(book::getFontAt).forEach(font -> {
             font.setColor(null);
-            // TODO: 文字列内の部分着色の消し方が分からない
+            // FIXME: [No.3 着色関連] 文字列内の部分着色の消し方が分からない
         });
         
         // 条件付き書式
         // 面倒なので、条件付き書式の色を消すのではなく条件付き書式そのものを消してしまうことにする。
-        // TODO: 条件付き書式の色を消す方式に変える
+        // FIXME: [No.3 着色関連] 条件付き書式の色を消す方式に変える
         IntStream.range(0, book.getNumberOfSheets()).mapToObj(book::getSheetAt).forEach(sheet -> {
             XSSFSheetConditionalFormatting cfs = sheet.getSheetConditionalFormatting();
             while (0 < cfs.getNumConditionalFormattings()) {
@@ -238,7 +238,7 @@ public class PoiUtil {
         });
         
         // シート見出し
-        // TODO: この実装で正しいのかさっぱり分からない
+        // FIXME: [No.3 着色関連] この実装で正しいのかさっぱり分からない
         // が事実としてシート見出し色が消えるのできっと良いのだろう・・
         book.forEach(sheet -> ((XSSFSheet) sheet).setTabColor(
                 new XSSFColor(new DefaultIndexedColorMap())));
@@ -257,7 +257,7 @@ public class PoiUtil {
             style.setBottomBorderColor(automatic);
             style.setLeftBorderColor(automatic);
             style.setRightBorderColor(automatic);
-            // TODO: 斜めの罫線に対する処理が必要
+            // FIXME: [No.3 着色関連] 斜めの罫線に対する処理が必要
             
             // パターンは残したまま、背景色＝白、前景色＝黒にする
             if (style.getFillPattern() == FillPatternType.SOLID_FOREGROUND) {
@@ -267,18 +267,18 @@ public class PoiUtil {
                 style.setFillForegroundColor(automatic);
                 style.setFillBackgroundColor(automatic);
             }
-            // TODO: グラデーション背景色の消し方が分からない
+            // FIXME: [No.3 着色関連] グラデーション背景色の消し方が分からない
         });
         
         // フォントに対する処理
         IntStream.range(0, book.getNumberOfFontsAsInt()).mapToObj(book::getFontAt).forEach(font -> {
             font.setColor(HSSFFont.COLOR_NORMAL);
-            // TODO: 非インデックスフォント色の消し方が分からない
+            // FIXME: [No.3 着色関連] 非インデックスフォント色の消し方が分からない
         });
         
         // 条件付き書式
         // 面倒なので、条件付き書式の色を消すのではなく条件付き書式そのものを消してしまうことにする。
-        // TODO: 条件付き書式の色を消す方式に変える
+        // FIXME: [No.3 着色関連] 条件付き書式の色を消す方式に変える
         IntStream.range(0, book.getNumberOfSheets()).mapToObj(book::getSheetAt).forEach(sheet -> {
             HSSFSheetConditionalFormatting cfs = sheet.getSheetConditionalFormatting();
             while (0 < cfs.getNumConditionalFormattings()) {
@@ -286,7 +286,7 @@ public class PoiUtil {
             }
         });
         
-        // TODO: シート見出しの色の消し方が分からない
+        // FIXME: [No.3 着色関連] シート見出しの色の消し方が分からない
     }
     
     /**

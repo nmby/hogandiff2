@@ -24,7 +24,7 @@ public interface Factory<T> {
         return BasicFactory.of();
     }
     
-    // TODO: 将来的には basic 以外の feature も提供したい。
+    // FIXME: [No.99 機能追加] 将来的には basic 以外の feature も提供したい。
     // セル書式を比較する feature とか、セルコメントを比較する feature とか、
     // オブジェクト内のテキストを比較する feature とか、
     // それらを統合的に扱う feature とか。

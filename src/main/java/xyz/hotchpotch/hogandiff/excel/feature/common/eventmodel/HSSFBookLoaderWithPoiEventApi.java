@@ -109,7 +109,7 @@ public class HSSFBookLoaderWithPoiEventApi implements BookLoader {
             case WSBoolRecord.sid:
                 WSBoolRecord wsbRec = (WSBoolRecord) record;
                 if (wsbRec.getDialog()) {
-                    // TODO: ダイアログシートであっても何故かここに入ってくれない
+                    // FIXME: [No.1 シート識別不正 - HSSF] ダイアログシートであっても何故かここに入ってくれない
                     sheets.get(idx).possibleTypes = EnumSet.of(SheetType.DIALOG_SHEET);
                 } else {
                     sheets.get(idx).possibleTypes.remove(SheetType.DIALOG_SHEET);
@@ -169,7 +169,7 @@ public class HSSFBookLoaderWithPoiEventApi implements BookLoader {
      * @throws ExcelHandlingException
      *              処理に失敗した場合
      */
-    // TODO: 上記のバグを改修する。（できるのか？）
+    // FIXME: [No.1 シート識別不正 - usermodel] 上記のバグを改修する。（できるのか？）
     // 
     // 例外カスケードのポリシーについて：
     // ・プログラミングミスに起因するこのメソッドの呼出不正は RuntimeException の派生でレポートする。
