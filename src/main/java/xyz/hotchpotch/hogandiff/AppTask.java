@@ -251,7 +251,7 @@ public class AppTask<T> extends Task<Void> {
             }
             
             updateProgress(progressAfter, PROGRESS_MAX);
-            return BResult.of(pairs, results);
+            return BResult.of(bookPath1, bookPath2, pairs, results);
             
         } catch (Exception e) {
             str.append(String.format("シートの比較に失敗しました。\n\n"));

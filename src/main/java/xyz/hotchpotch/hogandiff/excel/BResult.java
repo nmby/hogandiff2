@@ -1,5 +1,6 @@
 package xyz.hotchpotch.hogandiff.excel;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -27,34 +28,47 @@ public class BResult<T> {
      * Excelブック同士の比較結果を生成して返します。<br>
      * 
      * @param <T> セルデータの型
+     * @param bookPath1 比較対象Excelブックのパス1
+     * @param bookPath2 比較対象Excelブックのパス2
      * @param sheetPairs 比較したシート名のペア（片側だけの欠損ペアも含む）
      * @param results Excelシート同士の比較結果（片側だけの欠損ペアは含まない）
      * @return Excelブック同士の比較結果
      * @throws NullPointerException
-     *          {@code sheetPairs}, {@code results} のいずれかが {@code null} の場合
+     *          {@code bookPath1}, {@code bookPath2}, {@code sheetPairs}, {@code results}
+     *          のいずれかが {@code null} の場合
      */
     public static <T> BResult<T> of(
+            Path bookPath1,
+            Path bookPath2,
             List<Pair<String>> sheetPairs,
             Map<Pair<String>, SResult<T>> results) {
         
+        Objects.requireNonNull(bookPath1, "bookPath1");
+        Objects.requireNonNull(bookPath2, "bookPath2");
         Objects.requireNonNull(sheetPairs, "sheetPairs");
         Objects.requireNonNull(results, "results");
         
-        return new BResult<>(sheetPairs, results);
+        return new BResult<>(bookPath1, bookPath2, sheetPairs, results);
     }
     
     // [instance members] ******************************************************
     
+    private final Pair<Path> bookPath;
     private final List<Pair<String>> sheetPairs;
     private final Map<Pair<String>, SResult<T>> results;
     
     private BResult(
+            Path bookPath1,
+            Path bookPath2,
             List<Pair<String>> sheetPairs,
             Map<Pair<String>, SResult<T>> results) {
         
+        assert bookPath1 != null;
+        assert bookPath2 != null;
         assert sheetPairs != null;
         assert results != null;
         
+        this.bookPath = Pair.of(bookPath1, bookPath2);
         this.sheetPairs = sheetPairs;
         this.results = results;
     }
