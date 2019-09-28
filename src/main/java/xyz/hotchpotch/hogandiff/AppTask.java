@@ -279,7 +279,7 @@ public class AppTask<T> extends Task<Void> {
             updateMessage(str.toString());
             
             try (BufferedWriter writer = Files.newBufferedWriter(textPath)) {
-                writer.write(getResultText(results));
+                writer.write(results.toString());
             }
             Desktop.getDesktop().open(textPath.toFile());
             
@@ -292,29 +292,6 @@ public class AppTask<T> extends Task<Void> {
             throw new ApplicationException(
                     "比較結果テキストの保存と表示に失敗しました。\n" + textPath, e);
         }
-    }
-    
-    private String getResultText(BResult<T> results) {
-        StringBuilder str = new StringBuilder();
-        
-        Path bookPath1 = settings.get(AppSettingKeys.CURR_BOOK_PATH1);
-        Path bookPath2 = settings.get(AppSettingKeys.CURR_BOOK_PATH2);
-        if (bookPath1.equals(bookPath2)) {
-            str.append("ブック : ").append(bookPath1).append(BR);
-        } else {
-            str.append("ブックA : ").append(bookPath1).append(BR);
-            str.append("ブックB : ").append(bookPath2).append(BR);
-        }
-        
-        str.append(BR);
-        str.append("■サマリ -------------------------------------------------------").append(BR);
-        str.append(results.getSummary()).append(BR);
-        str.append("■詳細 ---------------------------------------------------------").append(BR);
-        str.append(results.getDetail()).append(BR);
-        str.append("■設定 ---------------------------------------------------------").append(BR);
-        str.append(settings.toString()).append(BR);
-        
-        return str.toString();
     }
     
     // 5. 比較結果の表示（Excelブック）

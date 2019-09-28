@@ -126,6 +126,21 @@ public class BResult<T> {
     
     @Override
     public String toString() {
-        return getDetail();
+        StringBuilder str = new StringBuilder();
+        
+        if (bookPath.isIdentical()) {
+            str.append("ブック : ").append(bookPath.a()).append(BR);
+        } else {
+            str.append("ブックA : ").append(bookPath.a()).append(BR);
+            str.append("ブックB : ").append(bookPath.b()).append(BR);
+        }
+        
+        str.append(BR);
+        str.append("■サマリ -------------------------------------------------------").append(BR);
+        str.append(getSummary()).append(BR);
+        str.append("■詳細 ---------------------------------------------------------").append(BR);
+        str.append(getDetail());
+        
+        return str.toString();
     }
 }
