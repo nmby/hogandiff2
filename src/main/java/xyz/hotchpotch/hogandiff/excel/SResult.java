@@ -3,6 +3,7 @@ package xyz.hotchpotch.hogandiff.excel;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import xyz.hotchpotch.hogandiff.util.Pair;
@@ -319,5 +320,58 @@ public class SResult<T> {
     @Override
     public String toString() {
         return getDetail();
+    }
+    
+    /**
+     * 比較結果のコマンドライン出力用文字列を返します。<br>
+     * 
+     * @return 比較結果のコマンドライン出力用文字列
+     */
+    public String getDiff() {
+        StringBuilder str = new StringBuilder();
+        
+        if (!redundantRows.a().isEmpty() || !redundantRows.b().isEmpty()) {
+            str.append("Row Gaps :").append(BR);
+            
+            Function<List<Integer>, String> rowsToStr = rows -> rows.stream()
+                    .map(i -> i + 1)
+                    .map(String::valueOf)
+                    .collect(Collectors.joining(", "));
+            
+            if (!redundantRows.a().isEmpty()) {
+                str.append("- ").append(rowsToStr.apply(redundantRows.a())).append(BR);
+            }
+            if (!redundantRows.b().isEmpty()) {
+                str.append("+ ").append(rowsToStr.apply(redundantRows.b())).append(BR);
+            }
+            str.append(BR);
+        }
+        
+        if (!redundantColumns.a().isEmpty() || !redundantColumns.b().isEmpty()) {
+            str.append("Column Gaps :").append(BR);
+            
+            Function<List<Integer>, String> columnsToStr = columns -> columns.stream()
+                    .map(CellReplica::columnIdxToStr)
+                    .collect(Collectors.joining(", "));
+            
+            if (!redundantColumns.a().isEmpty()) {
+                str.append("- ").append(columnsToStr.apply(redundantColumns.a())).append(BR);
+            }
+            if (!redundantColumns.b().isEmpty()) {
+                str.append("+ ").append(columnsToStr.apply(redundantColumns.b())).append(BR);
+            }
+            str.append(BR);
+        }
+        
+        if (!diffCells.isEmpty()) {
+            str.append("Diff Cells :").append(BR);
+            
+            str.append(diffCells.stream()
+                    .map(diffCell -> String.format("- %s\n+ %s\n", diffCell.a(), diffCell.b()))
+                    .collect(Collectors.joining(BR)));
+            
+        }
+        
+        return str.toString();
     }
 }

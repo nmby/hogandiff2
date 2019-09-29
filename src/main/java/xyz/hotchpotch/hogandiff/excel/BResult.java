@@ -143,4 +143,45 @@ public class BResult<T> {
         
         return str.toString();
     }
+    
+    /**
+     * 比較結果のコマンドライン出力用文字列を返します。<br>
+     * 
+     * @return 比較結果のコマンドライン出力用文字列
+     */
+    public String getDiff() {
+        StringBuilder str = new StringBuilder();
+        
+        if (bookPath.isIdentical()) {
+            str.append("--- ").append(bookPath.a()).append(sheetPairs.get(0).a()).append(BR);
+            str.append("+++ ").append(bookPath.b()).append(sheetPairs.get(0).b()).append(BR);
+            str.append(BR);
+            str.append(results.get(sheetPairs.get(0)).getDiff());
+            
+        } else {
+            str.append("--- ").append(bookPath.a()).append(BR);
+            str.append("+++ ").append(bookPath.b()).append(BR);
+            str.append(BR);
+            
+            Function<Pair<String>, String> sheetPairToStr = sheetPair -> {
+                if (sheetPair.isPaired()) {
+                    return String.format("@@ [%s] -> [%s] @@\n", sheetPair.a(), sheetPair.b())
+                            + results.get(sheetPair).getDiff();
+                    
+                } else if (sheetPair.isOnlyA()) {
+                    return String.format("@@ -[%s] @@\n", sheetPair.a());
+                    
+                } else if (sheetPair.isOnlyB()) {
+                    return String.format("@@ +[%s] @@\n", sheetPair.b());
+                    
+                } else {
+                    throw new AssertionError();
+                }
+            };
+            
+            str.append(sheetPairs.stream().map(sheetPairToStr).collect(Collectors.joining(BR)));
+        }
+        
+        return str.toString();
+    }
 }
