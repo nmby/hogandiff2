@@ -70,7 +70,7 @@ public class AppTask<T> extends Task<Void> {
     
     private final Settings settings;
     private final Factory<T> factory;
-    private final Menu menu;
+    private final AppMenu menu;
     private final StringBuilder str = new StringBuilder();
     
     private AppTask(
@@ -122,7 +122,7 @@ public class AppTask<T> extends Task<Void> {
         Path bookPath1 = settings.get(AppSettingKeys.CURR_BOOK_PATH1);
         Path bookPath2 = settings.get(AppSettingKeys.CURR_BOOK_PATH2);
         
-        if (menu == Menu.COMPARE_BOOKS) {
+        if (menu == AppMenu.COMPARE_BOOKS) {
             str.append(String.format(
                     "ブック同士の比較を開始します。\n[A] %s\n[B] %s\n\n",
                     bookPath1, bookPath2));
@@ -181,7 +181,7 @@ public class AppTask<T> extends Task<Void> {
             updateProgress(progressBefore, PROGRESS_MAX);
             
             List<Pair<String>> pairs;
-            if (menu == Menu.COMPARE_BOOKS) {
+            if (menu == AppMenu.COMPARE_BOOKS) {
                 str.append("比較するシートの組み合わせを決定しています...\n");
                 updateMessage(str.toString());
                 

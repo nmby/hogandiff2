@@ -17,7 +17,7 @@
 	<target name="create_run_jar">
 		<jar destfile="${dir.jarfile}/xyz.hotchpotch.hogandiff.jar">
 			<manifest>
-				<attribute name="Main-Class" value="xyz.hotchpotch.hogandiff.MainApp"/>
+				<attribute name="Main-Class" value="xyz.hotchpotch.hogandiff.AppMain"/>
 				<attribute name="Class-Path" value=". lib/poi-4.1.0/poi-4.1.0.jar lib/poi-4.1.0/poi-ooxml-4.1.0.jar lib/poi-4.1.0/poi-ooxml-schemas-4.1.0.jar lib/poi-4.1.0/lib/commons-codec-1.12.jar lib/poi-4.1.0/lib/commons-collections4-4.3.jar lib/poi-4.1.0/lib/commons-compress-1.18.jar lib/poi-4.1.0/ooxml-lib/xmlbeans-3.1.0.jar lib/javafx-13/lib/javafx.base.jar lib/javafx-13/lib/javafx.controls.jar lib/javafx-13/lib/javafx.fxml.jar lib/javafx-13/lib/javafx.graphics.jar lib/javafx-13/lib/javafx.media.jar lib/javafx-13/lib/javafx.swing.jar lib/javafx-13/lib/javafx.web.jar lib/javafx-13/lib/javafx-swt.jar "/>
 			</manifest>
 			<fileset dir="${dir.pjhome}/bin/main"/>

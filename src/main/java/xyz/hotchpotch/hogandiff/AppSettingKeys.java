@@ -38,13 +38,13 @@ public class AppSettingKeys {
             Function.identity());
     
     /** 今回の実行における比較メニュー */
-    public static final Key<Menu> CURR_MENU = Key.defineAs(
+    public static final Key<AppMenu> CURR_MENU = Key.defineAs(
             "application.current.menu",
             () -> {
                 throw new UnsupportedOperationException("the key has no default value.");
             },
-            Menu::toString,
-            Menu::valueOf);
+            AppMenu::toString,
+            AppMenu::valueOf);
     
     /** 今回の実行における比較対象Excelブック1のパス */
     public static final Key<Path> CURR_BOOK_PATH1 = Key.defineAs(

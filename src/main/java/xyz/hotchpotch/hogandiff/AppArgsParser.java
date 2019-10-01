@@ -18,7 +18,7 @@ import xyz.hotchpotch.hogandiff.util.Settings.Key;
  *
  * @author nmby
  */
-public class ArgsParser {
+public class AppArgsParser {
     
     // [static members] ********************************************************
     
@@ -76,7 +76,7 @@ public class ArgsParser {
         try {
             // 比較メニューと比較対象Excelブックパスのパース
             Settings.Builder builder = Settings.builder()
-                    .set(AppSettingKeys.CURR_MENU, Menu.COMPARE_BOOKS)
+                    .set(AppSettingKeys.CURR_MENU, AppMenu.COMPARE_BOOKS)
                     .set(AppSettingKeys.CURR_BOOK_PATH1, Path.of(args.get(0)))
                     .set(AppSettingKeys.CURR_BOOK_PATH2, Path.of(args.get(1)));
             
@@ -109,6 +109,6 @@ public class ArgsParser {
     
     // [instance members] ******************************************************
     
-    private ArgsParser() {
+    private AppArgsParser() {
     }
 }

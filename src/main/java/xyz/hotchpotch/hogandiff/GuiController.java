@@ -55,7 +55,7 @@ import xyz.hotchpotch.hogandiff.util.function.UnsafeConsumer;
  *
  * @author nmby
  */
-public class MainController {
+public class GuiController {
     
     // [static members] ********************************************************
     
@@ -158,7 +158,7 @@ public class MainController {
     
     // その他プロパティ --------------------------
     
-    private Property<Menu> menu = new SimpleObjectProperty<>();
+    private Property<AppMenu> menu = new SimpleObjectProperty<>();
     private Property<Path> bookPath1 = new SimpleObjectProperty<>();
     private Property<Path> bookPath2 = new SimpleObjectProperty<>();
     private StringProperty sheetName1 = new SimpleStringProperty();
@@ -198,8 +198,8 @@ public class MainController {
         // 比較メニューの選択状態を反映させる。
         menu.bind(Bindings.createObjectBinding(
                 () -> radioCompareBooks.isSelected()
-                        ? Menu.COMPARE_BOOKS
-                        : Menu.COMPARE_SHEETS,
+                        ? AppMenu.COMPARE_BOOKS
+                        : AppMenu.COMPARE_SHEETS,
                 radioCompareBooks.selectedProperty()));
         
         // シート名選択プルダウンの選択内容を反映させる。
@@ -210,7 +210,7 @@ public class MainController {
         isReady.bind(Bindings.createBooleanBinding(
                 () -> bookPath1.getValue() != null
                         && bookPath2.getValue() != null
-                        && (menu.getValue() == Menu.COMPARE_BOOKS
+                        && (menu.getValue() == AppMenu.COMPARE_BOOKS
                                 || (sheetName1.getValue() != null && sheetName2.getValue() != null)),
                 menu, bookPath1, bookPath2, sheetName1, sheetName2));
         
@@ -271,9 +271,9 @@ public class MainController {
         
         // 「設定を保存」ボタンのイベントハンドラを登録する。
         buttonSaveSettings.setOnAction(event -> {
-            Settings settings = gatherSettings(MainApp.keysToBeSaved);
+            Settings settings = gatherSettings(AppMain.keysToBeSaved);
             Properties properties = settings.toProperties();
-            MainApp.storeProperties(properties);
+            AppMain.storeProperties(properties);
             hasSettingsChanged.set(false);
         });
     }
@@ -339,7 +339,7 @@ public class MainController {
         
         settings.keySet().forEach(key -> {
             if (key == AppSettingKeys.CURR_MENU) {
-                radioCompareBooks.setSelected(settings.get(key) == Menu.COMPARE_BOOKS);
+                radioCompareBooks.setSelected(settings.get(key) == AppMenu.COMPARE_BOOKS);
                 
             } else if (key == AppSettingKeys.CURR_BOOK_PATH1) {
                 bookPath1.setValue((Path) settings.get(key));
@@ -443,7 +443,7 @@ public class MainController {
         if (targets == null || targets.contains(AppSettingKeys.CURR_BOOK_PATH2)) {
             builder.set(AppSettingKeys.CURR_BOOK_PATH2, bookPath2.getValue());
         }
-        if (menu.getValue() == Menu.COMPARE_SHEETS) {
+        if (menu.getValue() == AppMenu.COMPARE_SHEETS) {
             if (targets == null || targets.contains(AppSettingKeys.CURR_SHEET_NAME1)) {
                 builder.set(AppSettingKeys.CURR_SHEET_NAME1, sheetName1.getValue());
             }
@@ -495,7 +495,7 @@ public class MainController {
         }
         
         Settings settings = gatherSettings(null);
-        Menu menu = settings.get(AppSettingKeys.CURR_MENU);
+        AppMenu menu = settings.get(AppSettingKeys.CURR_MENU);
         
         if (!menu.isValidTargets(settings)) {
             new Alert(
