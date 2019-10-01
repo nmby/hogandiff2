@@ -37,13 +37,6 @@ public class AppSettingKeys {
             Function.identity(),
             Function.identity());
     
-    /** 今回CUIモードで実行するか */
-    public static final Key<Boolean> CUI_MODE = Key.defineAs(
-            "application.current.cuiMode",
-            () -> false,
-            String::valueOf,
-            Boolean::valueOf);
-    
     /** 今回の実行における比較メニュー */
     public static final Key<AppMenu> CURR_MENU = Key.defineAs(
             "application.current.menu",

@@ -56,7 +56,7 @@ public class AppTask<T> extends Task<Void> {
      * @return 新しいタスク
      * 
      */
-    public static <T> AppTask<T> of(
+    public static <T> Task<Void> of(
             Settings settings,
             Factory<T> factory) {
         
@@ -86,7 +86,7 @@ public class AppTask<T> extends Task<Void> {
     }
     
     @Override
-    public Void call() throws Exception {
+    protected Void call() throws Exception {
         
         // 0. 処理開始のアナウンス
         announceStart(0, 0);
@@ -100,19 +100,14 @@ public class AppTask<T> extends Task<Void> {
         // 3. シート同士の比較
         BResult<T> results = compareSheets(pairs, 5, 75);
         
-        if (settings.get(AppSettingKeys.CUI_MODE)) {
-            System.out.print(results.getDiff());
-            
-        } else {
-            // 4. 比較結果の表示（テキスト）
-            if (settings.get(AppSettingKeys.SHOW_RESULT_TEXT)) {
-                showResultText(workDir, results, 75, 80);
-            }
-            
-            // 5. 比較結果の表示（Excelブック）
-            if (settings.get(AppSettingKeys.SHOW_PAINTED_SHEETS)) {
-                showPaintedSheets(workDir, results, 80, 98);
-            }
+        // 4. 比較結果の表示（テキスト）
+        if (settings.get(AppSettingKeys.SHOW_RESULT_TEXT)) {
+            showResultText(workDir, results, 75, 80);
+        }
+        
+        // 5. 比較結果の表示（Excelブック）
+        if (settings.get(AppSettingKeys.SHOW_PAINTED_SHEETS)) {
+            showPaintedSheets(workDir, results, 80, 98);
         }
         
         // 6. 処理終了のアナウンス

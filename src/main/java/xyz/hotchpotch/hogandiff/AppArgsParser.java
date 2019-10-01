@@ -29,17 +29,15 @@ public class AppArgsParser {
             + "方眼Diff.exe bookPath1 bookPath2 <OPTIONS>" + BR
             + BR
             + "<OPTIONS>" + BR
-            + "    --cui-mode             [true|valse]  :  default value is false" + BR
-            + "    --consider-row-gaps    [true|false]  :  default value is true" + BR
-            + "    --consider-column-gaps [true|false]  :  default value is false" + BR
-            + "    --compare-on-formulas  [true|false]  :  default value is false" + BR
-            + "    --show-painted-sheets  [true|false]  :  enable only in gui-mode. default value is true" + BR
-            + "    --show-result-text     [true|false]  :  enable only in gui-mode. default value is true" + BR
-            + "    --exit-when-finished   [true|false]  :  enable only in gui-mode. default value is false" + BR
+            + "    --consider-row-gaps     [true|false]" + BR
+            + "    --consider-column-gaps  [true|false]" + BR
+            + "    --compare-on-formulas   [true|false]" + BR
+            + "    --show-painted-sheets   [true|false]" + BR
+            + "    --show-result-text      [true|false]" + BR
+            + "    --exit-when-finished    [true|false]" + BR
             + BR;
     
     private static final Map<String, Key<Boolean>> OPTIONS = Map.of(
-            "--cui-mode", AppSettingKeys.CUI_MODE,
             "--consider-row-gaps", SettingKeys.CONSIDER_ROW_GAPS,
             "--consider-column-gaps", SettingKeys.CONSIDER_COLUMN_GAPS,
             "--compare-on-formulas", SettingKeys.COMPARE_ON_FORMULA_STRING,
