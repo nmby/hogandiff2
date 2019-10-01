@@ -29,15 +29,17 @@ public class AppArgsParser {
             + "方眼Diff.exe bookPath1 bookPath2 <OPTIONS>" + BR
             + BR
             + "<OPTIONS>" + BR
-            + "    --consider-row-gaps     [true|false]" + BR
-            + "    --consider-column-gaps  [true|false]" + BR
-            + "    --compare-on-formulas   [true|false]" + BR
-            + "    --show-painted-sheets   [true|false]" + BR
-            + "    --show-result-text      [true|false]" + BR
-            + "    --exit-when-finished    [true|false]" + BR
+            + "    --cui-mode              [true|false]  :  default value is false" + BR
+            + "    --consider-row-gaps     [true|false]  :  default value is true" + BR
+            + "    --consider-column-gaps  [true|false]  :  default value is false" + BR
+            + "    --compare-on-formulas   [true|false]  :  default value is false" + BR
+            + "    --show-painted-sheets   [true|false]  :  default value is true" + BR
+            + "    --show-result-text      [true|false]  :  default value is true" + BR
+            + "    --exit-when-finished    [true|false]  :  default value is false" + BR
             + BR;
     
     private static final Map<String, Key<Boolean>> OPTIONS = Map.of(
+            "--cui-mode", AppSettingKeys.CUI_MODE,
             "--consider-row-gaps", SettingKeys.CONSIDER_ROW_GAPS,
             "--consider-column-gaps", SettingKeys.CONSIDER_COLUMN_GAPS,
             "--compare-on-formulas", SettingKeys.COMPARE_ON_FORMULA_STRING,
@@ -74,8 +76,9 @@ public class AppArgsParser {
         }
         
         try {
-            // 比較メニューと比較対象Excelブックパスのパース
+            // 必須項目のデフォルト値設定と比較対象Excelブックパスのパース
             Settings.Builder builder = Settings.builder()
+                    .setDefaultValue(AppSettingKeys.CUI_MODE)
                     .set(AppSettingKeys.CURR_MENU, AppMenu.COMPARE_BOOKS)
                     .set(AppSettingKeys.CURR_BOOK_PATH1, Path.of(args.get(0)))
                     .set(AppSettingKeys.CURR_BOOK_PATH2, Path.of(args.get(1)));

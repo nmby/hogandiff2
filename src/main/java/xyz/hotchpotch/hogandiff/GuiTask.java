@@ -34,7 +34,7 @@ import xyz.hotchpotch.hogandiff.util.StringUtil;
  * @param <T> 利用するファクトリの型
  * @author nmby
  */
-public class AppTask<T> extends Task<Void> {
+public class GuiTask<T> extends Task<Void> {
     
     // [static members] ********************************************************
     
@@ -63,7 +63,7 @@ public class AppTask<T> extends Task<Void> {
         Objects.requireNonNull(settings, "settings");
         Objects.requireNonNull(factory, "factory");
         
-        return new AppTask<>(settings, factory);
+        return new GuiTask<>(settings, factory);
     }
     
     // [instance members] ******************************************************
@@ -73,7 +73,7 @@ public class AppTask<T> extends Task<Void> {
     private final AppMenu menu;
     private final StringBuilder str = new StringBuilder();
     
-    private AppTask(
+    private GuiTask(
             Settings settings,
             Factory<T> factory) {
         
