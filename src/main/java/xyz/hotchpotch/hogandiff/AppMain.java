@@ -10,6 +10,7 @@ import java.util.Properties;
 import java.util.Set;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,6 +20,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import xyz.hotchpotch.hogandiff.excel.SettingKeys;
+import xyz.hotchpotch.hogandiff.excel.feature.basic.BasicFactory;
 import xyz.hotchpotch.hogandiff.util.Settings;
 
 /**
@@ -56,7 +58,17 @@ public class AppMain extends Application {
     public static void main(String[] args) {
         settings = arrangeSettings(args);
         if (settings.containsKey(AppSettingKeys.CUI_MODE) && settings.get(AppSettingKeys.CUI_MODE)) {
-            // TODO: coding
+            // FIXME: [No.91 内部実装改善] CUIモード実現時の実装がやっつけ過ぎるので根本的に改善する
+            try {
+                settings = Settings.builder(settings)
+                        .setDefaultValue(AppSettingKeys.CURR_TIMESTAMP)
+                        .setDefaultValue(AppSettingKeys.WORK_DIR_BASE)
+                        .build();
+                AppTask.of(settings, BasicFactory.of(), null).call();
+                Platform.exit();
+            } catch (ApplicationException e) {
+                e.printStackTrace();
+            }
         } else {
             launch(args);
         }

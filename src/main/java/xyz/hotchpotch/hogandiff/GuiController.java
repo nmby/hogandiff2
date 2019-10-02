@@ -434,6 +434,9 @@ public class GuiController {
     private Settings gatherSettings(Set<Settings.Key<?>> targets) {
         Settings.Builder builder = Settings.builder();
         
+        if (targets == null || targets.contains(AppSettingKeys.CUI_MODE)) {
+            builder.set(AppSettingKeys.CUI_MODE, false);
+        }
         if (targets == null || targets.contains(AppSettingKeys.CURR_MENU)) {
             builder.set(AppSettingKeys.CURR_MENU, menu.getValue());
         }
