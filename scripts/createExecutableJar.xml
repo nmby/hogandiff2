@@ -3,7 +3,7 @@
 	<!--this file was created by Eclipse Runnable JAR Export Wizard-->
 	<!--ANT 1.7 is required                                        -->
 	<!--define folder properties-->
-    <property name="app.version" value="0.5.1"/>
+    <property name="app.version" value="0.6.0"/>
 	<property name="dir.userlib" value="C:/Users/ya_na/OneDrive/UserLibs"/>
 	<property name="dir.userlib.poi-4.1.0" value="${dir.userlib}/poi-4.1.0"/>
 	<property name="dir.userlib.javafx-13" value="${dir.userlib}/javafx-sdk-13"/>

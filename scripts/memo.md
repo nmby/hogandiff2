@@ -4,7 +4,7 @@
 
 ### ソースコード
 
-- xyz/hotchpotch/hogandiff/MainApp
+- xyz/hotchpotch/hogandiff/AppMain
     - "VERSION" クラス変数の値
 
 ### ビルドスクリプト
