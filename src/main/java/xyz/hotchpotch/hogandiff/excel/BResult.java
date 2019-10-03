@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import xyz.hotchpotch.hogandiff.excel.SResult.Piece;
 import xyz.hotchpotch.hogandiff.util.Pair;
 import xyz.hotchpotch.hogandiff.util.Pair.Side;
-import xyz.hotchpotch.hogandiff.util.StringUtil;
 
 /**
  * Excepブック同士の比較結果を表す不変クラスです。<br>
@@ -98,8 +97,7 @@ public class BResult<T> {
                     pair.isPresentB() ? "[" + pair.b() + "]" : "(なし)"))
                     .append(BR);
             if (pair.isPaired()) {
-                str.append(StringUtil.addPrefix("        ", func.apply(results.get(pair))));
-                str.append(BR);
+                str.append(func.apply(results.get(pair)).indent(8)).append(BR);
             }
             return str;
             

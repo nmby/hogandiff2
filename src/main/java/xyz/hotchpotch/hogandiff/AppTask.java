@@ -22,7 +22,6 @@ import xyz.hotchpotch.hogandiff.excel.SheetLoader;
 import xyz.hotchpotch.hogandiff.util.Pair;
 import xyz.hotchpotch.hogandiff.util.Pair.Side;
 import xyz.hotchpotch.hogandiff.util.Settings;
-import xyz.hotchpotch.hogandiff.util.StringUtil;
 
 /**
  * 比較処理を実行するためのタスクです。<br>
@@ -244,8 +243,7 @@ public class AppTask<T> extends Task<Void> {
                 SResult<T> result = comparator.compare(cells1, cells2);
                 results.put(pair, result);
                 
-                str.append(StringUtil.addPrefix("        ", result.getSummary()))
-                        .append(BR).append(BR);
+                str.append(result.getSummary().indent(8)).append(BR).append(BR);
                 updateMessage(str.toString());
                 updateProgress(progressBefore + total * i / pairedPairs.size(), PROGRESS_MAX);
             }
