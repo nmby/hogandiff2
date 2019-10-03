@@ -68,6 +68,7 @@
 > 方眼Diff.exe Excelファイルパス1 Excelファイルパス2
 ```
 
+各種オプションを指定することもできます。  
 詳細は[Webサイト](http://hogandiff.hotchpotch.xyz/)をご覧ください。
 
 ## 提供ライセンス
