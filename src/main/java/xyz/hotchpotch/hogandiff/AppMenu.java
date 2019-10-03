@@ -18,7 +18,7 @@ import xyz.hotchpotch.hogandiff.util.Settings;
  *
  * @author nmby
  */
-public enum Menu {
+public enum AppMenu {
     
     // [static members] ********************************************************
     
@@ -100,7 +100,7 @@ public enum Menu {
     
     // [instance members] ******************************************************
     
-    private Menu() {
+    private AppMenu() {
     }
     
     /**

@@ -18,7 +18,7 @@ import xyz.hotchpotch.hogandiff.util.Settings.Key;
  *
  * @author nmby
  */
-public class ArgsParser {
+public class AppArgsParser {
     
     // [static members] ********************************************************
     
@@ -26,22 +26,15 @@ public class ArgsParser {
     
     /** このアプリケーションのコマンドライン起動時の使い方 */
     public static final String USAGE = ""
-            + "COMPARE BOOKS : " + BR
-            + "    [--compare-books|-B] bookPath1 bookPath2 <OPTIONS>" + BR
-            + BR
-            + "COMPARE SHEETS : " + BR
-            + "    [--compare-sheets|-S] bookPath1 sheetName1 bookPath2 sheetName2 <OPTIONS>" + BR
-            + BR
-            + "SHOW USAGE : " + BR
-            + "    [--show-usage|-H]" + BR
+            + "方眼Diff.exe bookPath1 bookPath2 <OPTIONS>" + BR
             + BR
             + "<OPTIONS>" + BR
-            + "    --consider-row-gaps     [true|false]" + BR
-            + "    --consider-column-gaps  [true|false]" + BR
-            + "    --compare-on-formulas   [true|false]" + BR
-            + "    --show-painted-sheets   [true|false]" + BR
-            + "    --show-result-text      [true|false]" + BR
-            + "    --exit-when-finished    [true|false]" + BR
+            + "    --consider-row-gaps=[true|false]    : default value is true" + BR
+            + "    --consider-column-gaps=[true|false] : default value is false" + BR
+            + "    --compare-on-formulas=[true|false]  : default value is false" + BR
+            + "    --show-painted-sheets=[true|false]  : default value is true" + BR
+            + "    --show-result-text=[true|false]     : default value is true" + BR
+            + "    --exit-when-finished=[true|false]   : default value is false" + BR
             + BR;
     
     private static final Map<String, Key<Boolean>> OPTIONS = Map.of(
@@ -76,51 +69,29 @@ public class ArgsParser {
      */
     public static Optional<Settings> parseArgs(List<String> args) {
         Objects.requireNonNull(args, "args");
-        if (args.size() == 0) {
+        if (args.size() < 2) {
             return Optional.empty();
         }
         
-        Settings.Builder builder = Settings.builder();
-        Deque<String> remainingParams = new ArrayDeque<>(args);
-        
         try {
-            // メニューのパース
-            String menu = remainingParams.removeFirst();
-            if ("--compare-books".equals(menu) || "-B".equals(menu)) {
-                if (remainingParams.size() < 2) {
-                    return Optional.empty();
-                }
-                builder.set(AppSettingKeys.CURR_MENU, Menu.COMPARE_BOOKS);
-                builder.set(AppSettingKeys.CURR_BOOK_PATH1, Path.of(remainingParams.removeFirst()));
-                builder.set(AppSettingKeys.CURR_BOOK_PATH2, Path.of(remainingParams.removeFirst()));
-                
-            } else if ("--compare-sheets".equals(menu) || "-S".equals(menu)) {
-                if (remainingParams.size() < 4) {
-                    return Optional.empty();
-                }
-                builder.set(AppSettingKeys.CURR_MENU, Menu.COMPARE_SHEETS);
-                builder.set(AppSettingKeys.CURR_BOOK_PATH1, Path.of(remainingParams.removeFirst()));
-                builder.set(AppSettingKeys.CURR_BOOK_PATH2, Path.of(remainingParams.removeFirst()));
-                builder.set(AppSettingKeys.CURR_SHEET_NAME1, remainingParams.removeFirst());
-                builder.set(AppSettingKeys.CURR_SHEET_NAME2, remainingParams.removeFirst());
-                
-            } else {
-                return Optional.empty();
-            }
+            // 比較メニューと比較対象Excelブックパスのパース
+            Settings.Builder builder = Settings.builder()
+                    .set(AppSettingKeys.CURR_MENU, AppMenu.COMPARE_BOOKS)
+                    .set(AppSettingKeys.CURR_BOOK_PATH1, Path.of(args.get(0)))
+                    .set(AppSettingKeys.CURR_BOOK_PATH2, Path.of(args.get(1)));
             
             // オプションのパース
+            Deque<String> remainingParams = new ArrayDeque<>(args.subList(2, args.size()));
             Map<String, Key<Boolean>> remainingOptions = new HashMap<>(OPTIONS);
-            while (2 <= remainingParams.size() && !remainingOptions.isEmpty()) {
-                String opt = remainingParams.peekFirst();
-                if (!remainingOptions.containsKey(opt)) {
-                    break;
-                }
-                remainingParams.removeFirst();
-                String value = remainingParams.removeFirst().toLowerCase();
-                if (!"true".equals(value) && !"false".equals(value)) {
+            while (!remainingParams.isEmpty() && !remainingOptions.isEmpty()) {
+                String[] keyValue = remainingParams.removeFirst().split("=", 2);
+                if (!remainingOptions.containsKey(keyValue[0])) {
                     return Optional.empty();
                 }
-                builder.set(remainingOptions.remove(opt), Boolean.valueOf(value));
+                if (!"true".equals(keyValue[1]) && !"false".equals(keyValue[1])) {
+                    return Optional.empty();
+                }
+                builder.set(remainingOptions.remove(keyValue[0]), Boolean.valueOf(keyValue[1]));
             }
             
             // 解析不能なパラメータが残っている場合はエラー（解析失敗）とする。
@@ -137,6 +108,6 @@ public class ArgsParser {
     
     // [instance members] ******************************************************
     
-    private ArgsParser() {
+    private AppArgsParser() {
     }
 }

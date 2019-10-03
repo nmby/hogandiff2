@@ -293,7 +293,7 @@ public class PaintColumnsReader extends BufferingReader {
         attrs.add(eventFactory.createAttribute(NONS_QNAME.MIN, Integer.toString(start + 1)));
         attrs.add(eventFactory.createAttribute(NONS_QNAME.MAX, Integer.toString(end + 1)));
         attrs.add(eventFactory.createAttribute(NONS_QNAME.STYLE, Integer.toString(newStyle)));
-        // TODO: 列幅のデフォルト値をどっから取ってくるべきなのか要確認
+        // FIXME: [No.7 POI関連] 列幅のデフォルト値をどっから取ってくるべきなのか要確認
         attrs.add(eventFactory.createAttribute(NONS_QNAME.WIDTH, "9"));
         
         buffer.add(eventFactory.createStartElement(QNAME.COL, attrs.iterator(), null));

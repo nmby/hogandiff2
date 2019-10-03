@@ -11,7 +11,7 @@ import xyz.hotchpotch.hogandiff.excel.SResult.Piece;
  *
  * @author nmby
  */
-// TODO: 要お勉強
+// FIXME: [No.92 ドキュメント改善] 要お勉強
 // 副作用があっても「関数型インタフェース」と言って良いのかしら？？
 // Consumer も同じだから、良いのかな？？
 @FunctionalInterface

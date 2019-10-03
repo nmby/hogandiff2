@@ -109,7 +109,7 @@ class HSSFBookLoaderWithPoiEventApiTest {
     void testLoadSheetNames_ワークシートのみが対象の場合() throws ExcelHandlingException {
         BookLoader testee = HSSFBookLoaderWithPoiEventApi.of(EnumSet.of(SheetType.WORKSHEET));
         
-        // TODO: ダイアログシートもワークシートと判別されてしまう。
+        // FIXME: [No.1 シート識別不正 - HSSF] ダイアログシートもワークシートと判別されてしまう。
         // どうしようもないのかしら？？
         assertEquals(
                 List.of("A1_ワークシート", "A3_ダイアログ",
@@ -131,7 +131,7 @@ class HSSFBookLoaderWithPoiEventApiTest {
     void testLoadSheetNames_ダイアログシートのみが対象の場合() throws ExcelHandlingException {
         BookLoader testee = HSSFBookLoaderWithPoiEventApi.of(EnumSet.of(SheetType.DIALOG_SHEET));
         
-        // TODO: ダイアログシートもワークシートと判別されてしまう。
+        // FIXME: [No.1 シート識別不正 - HSSF] ダイアログシートもワークシートと判別されてしまう。
         // どうしようもないのかしら？？
         assertEquals(
                 List.of(),

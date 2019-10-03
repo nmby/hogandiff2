@@ -65,9 +65,10 @@
 「方眼Diff.exe」は比較対象のExcelファイルのパス2つをパラメータに与えることにより、コマンドラインから起動することができます。
 
 ```
-> 方眼Diff.exe --compare-books Excelファイルパス1 Excelファイルパス2
+> 方眼Diff.exe Excelファイルパス1 Excelファイルパス2
 ```
 
+各種オプションを指定することもできます。  
 詳細は[Webサイト](http://hogandiff.hotchpotch.xyz/)をご覧ください。
 
 ## 提供ライセンス

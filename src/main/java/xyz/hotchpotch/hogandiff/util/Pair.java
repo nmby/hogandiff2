@@ -283,7 +283,7 @@ public class Pair<T> {
     /**
      * 要素aだけが存在するかを返します。<br>
      * 
-     * @return 要素aだけが存在する場合は{@code true}
+     * @return 要素aだけが存在する場合は {@code true}
      */
     public boolean isOnlyA() {
         return a.isPresent() && b.isEmpty();
@@ -292,7 +292,7 @@ public class Pair<T> {
     /**
      * 要素bだけが存在するかを返します。<br>
      * 
-     * @return 要素bだけが存在する場合は{@code true}
+     * @return 要素bだけが存在する場合は {@code true}
      */
     public boolean isOnlyB() {
         return a.isEmpty() && b.isPresent();
@@ -302,7 +302,7 @@ public class Pair<T> {
      * 指定された側の要素だけが存在するかを返します。<br>
      * 
      * @param side 要素の側
-     * @return 指定された側の要素だけが存在する場合は{@code true}
+     * @return 指定された側の要素だけが存在する場合は {@code true}
      * @throws NullPointerException {@code side} が {@code null} の場合
      */
     public boolean isOnly(Side side) {
@@ -318,6 +318,15 @@ public class Pair<T> {
      */
     public boolean isEmpty() {
         return a.isEmpty() && b.isEmpty();
+    }
+    
+    /**
+     * 要素aと要素bが同じであるかを返します。<br>
+     * 
+     * @return 要素aと要素bが同じ場合は {@code true}
+     */
+    public boolean isIdentical() {
+        return a.equals(b);
     }
     
     /**

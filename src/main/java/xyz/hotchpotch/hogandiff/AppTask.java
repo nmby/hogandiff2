@@ -22,7 +22,6 @@ import xyz.hotchpotch.hogandiff.excel.SheetLoader;
 import xyz.hotchpotch.hogandiff.util.Pair;
 import xyz.hotchpotch.hogandiff.util.Pair.Side;
 import xyz.hotchpotch.hogandiff.util.Settings;
-import xyz.hotchpotch.hogandiff.util.StringUtil;
 
 /**
  * 比較処理を実行するためのタスクです。<br>
@@ -70,7 +69,7 @@ public class AppTask<T> extends Task<Void> {
     
     private final Settings settings;
     private final Factory<T> factory;
-    private final Menu menu;
+    private final AppMenu menu;
     private final StringBuilder str = new StringBuilder();
     
     private AppTask(
@@ -122,7 +121,7 @@ public class AppTask<T> extends Task<Void> {
         Path bookPath1 = settings.get(AppSettingKeys.CURR_BOOK_PATH1);
         Path bookPath2 = settings.get(AppSettingKeys.CURR_BOOK_PATH2);
         
-        if (menu == Menu.COMPARE_BOOKS) {
+        if (menu == AppMenu.COMPARE_BOOKS) {
             str.append(String.format(
                     "ブック同士の比較を開始します。\n[A] %s\n[B] %s\n\n",
                     bookPath1, bookPath2));
@@ -181,7 +180,7 @@ public class AppTask<T> extends Task<Void> {
             updateProgress(progressBefore, PROGRESS_MAX);
             
             List<Pair<String>> pairs;
-            if (menu == Menu.COMPARE_BOOKS) {
+            if (menu == AppMenu.COMPARE_BOOKS) {
                 str.append("比較するシートの組み合わせを決定しています...\n");
                 updateMessage(str.toString());
                 
@@ -244,14 +243,13 @@ public class AppTask<T> extends Task<Void> {
                 SResult<T> result = comparator.compare(cells1, cells2);
                 results.put(pair, result);
                 
-                str.append(StringUtil.addPrefix("        ", result.getSummary()))
-                        .append(BR).append(BR);
+                str.append(result.getSummary().indent(8)).append(BR).append(BR);
                 updateMessage(str.toString());
                 updateProgress(progressBefore + total * i / pairedPairs.size(), PROGRESS_MAX);
             }
             
             updateProgress(progressAfter, PROGRESS_MAX);
-            return BResult.of(pairs, results);
+            return BResult.of(bookPath1, bookPath2, pairs, results);
             
         } catch (Exception e) {
             str.append(String.format("シートの比較に失敗しました。\n\n"));
@@ -279,7 +277,7 @@ public class AppTask<T> extends Task<Void> {
             updateMessage(str.toString());
             
             try (BufferedWriter writer = Files.newBufferedWriter(textPath)) {
-                writer.write(getResultText(results));
+                writer.write(results.toString());
             }
             Desktop.getDesktop().open(textPath.toFile());
             
@@ -292,29 +290,6 @@ public class AppTask<T> extends Task<Void> {
             throw new ApplicationException(
                     "比較結果テキストの保存と表示に失敗しました。\n" + textPath, e);
         }
-    }
-    
-    private String getResultText(BResult<T> results) {
-        StringBuilder str = new StringBuilder();
-        
-        Path bookPath1 = settings.get(AppSettingKeys.CURR_BOOK_PATH1);
-        Path bookPath2 = settings.get(AppSettingKeys.CURR_BOOK_PATH2);
-        if (bookPath1.equals(bookPath2)) {
-            str.append("ブック : ").append(bookPath1).append(BR);
-        } else {
-            str.append("ブックA : ").append(bookPath1).append(BR);
-            str.append("ブックB : ").append(bookPath2).append(BR);
-        }
-        
-        str.append(BR);
-        str.append("■サマリ -------------------------------------------------------").append(BR);
-        str.append(results.getSummary()).append(BR);
-        str.append("■詳細 ---------------------------------------------------------").append(BR);
-        str.append(results.getDetail()).append(BR);
-        str.append("■設定 ---------------------------------------------------------").append(BR);
-        str.append(settings.toString()).append(BR);
-        
-        return str.toString();
     }
     
     // 5. 比較結果の表示（Excelブック）

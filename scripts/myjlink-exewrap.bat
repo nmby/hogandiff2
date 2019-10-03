@@ -2,7 +2,7 @@
 @echo OFF
 chcp 65001
 
-set VERSION=0.5.1
+set VERSION=0.6.0
 
 set JLINK_CMD=c:\pleiades_201906\java\12\bin\jlink
 

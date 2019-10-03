@@ -96,14 +96,14 @@ class BookLoaderWithPoiUserApiTest {
                         "B1_ワークシート", "B2_グラフ", "B3_ダイアログ", "B4_マクロ"),
                 testee.loadSheetNames(test1_xls));
         
-        // TODO: どういう訳か「x3_ダイアログ」と「x4_マクロ」を取得できない。
+        // FIXME: [No.1 シート識別不正 - usermodel] どういう訳か「x3_ダイアログ」と「x4_マクロ」を取得できない。
         // どうしようもないのかしら？？
         assertEquals(
                 List.of("A1_ワークシート", "A2_グラフ",
                         "B1_ワークシート", "B2_グラフ"),
                 testee.loadSheetNames(test1_xlsm));
         
-        // TODO: どういう訳か「x3_ダイアログ」を取得できない。
+        // FIXME: [No.1 シート識別不正 - usermodel] どういう訳か「x3_ダイアログ」を取得できない。
         // マクロ無しのブックのため「x4_マクロ」が通常のワークシートとして保存されたためか、
         // 「x4_マクロ」は取得できている。
         // どうしようもないのかしら？？
@@ -117,7 +117,7 @@ class BookLoaderWithPoiUserApiTest {
     void testLoadSheetNames_ワークシートのみが対象の場合() throws ExcelHandlingException {
         BookLoader testee = BookLoaderWithPoiUserApi.of(EnumSet.of(SheetType.WORKSHEET));
         
-        // TODO: .xls 形式の場合はシート種別を見分けられない。
+        // FIXME: [No.1 シート識別不正 - usermodel] .xls 形式の場合はシート種別を見分けられない。
         // どうしようもないのかしら？？
         assertEquals(
                 List.of("A1_ワークシート", "A2_グラフ", "A3_ダイアログ", "A4_マクロ",
@@ -141,7 +141,7 @@ class BookLoaderWithPoiUserApiTest {
     void testLoadSheetNames_グラフシートのみが対象の場合() throws ExcelHandlingException {
         BookLoader testee = BookLoaderWithPoiUserApi.of(EnumSet.of(SheetType.CHART_SHEET));
         
-        // TODO: .xls 形式の場合はシート種別を見分けられない。
+        // FIXME: [No.1 シート識別不正 - usermodel] .xls 形式の場合はシート種別を見分けられない。
         // どうしようもないのかしら？？
         assertEquals(
                 List.of("A1_ワークシート", "A2_グラフ", "A3_ダイアログ", "A4_マクロ",
@@ -163,20 +163,20 @@ class BookLoaderWithPoiUserApiTest {
     void testLoadSheetNames_ダイアログシートのみが対象の場合() throws ExcelHandlingException {
         BookLoader testee = BookLoaderWithPoiUserApi.of(EnumSet.of(SheetType.DIALOG_SHEET));
         
-        // TODO: .xls 形式の場合はシート種別を見分けられない。
+        // FIXME: [No.1 シート識別不正 - usermodel] .xls 形式の場合はシート種別を見分けられない。
         // どうしようもないのかしら？？
         assertEquals(
                 List.of("A1_ワークシート", "A2_グラフ", "A3_ダイアログ", "A4_マクロ",
                         "B1_ワークシート", "B2_グラフ", "B3_ダイアログ", "B4_マクロ"),
                 testee.loadSheetNames(test1_xls));
         
-        // TODO: ダイアログシートを正しく識別できない。
+        // FIXME: [No.1 シート識別不正 - usermodel] ダイアログシートを正しく識別できない。
         // どうしようもないのかしら？？
         assertEquals(
                 List.of(),
                 testee.loadSheetNames(test1_xlsm));
         
-        // TODO: ダイアログシートを正しく識別できない。
+        // FIXME: [No.1 シート識別不正 - usermodel] ダイアログシートを正しく識別できない。
         // どうしようもないのかしら？？
         assertEquals(
                 List.of(),
@@ -187,14 +187,14 @@ class BookLoaderWithPoiUserApiTest {
     void testLoadSheetNames_マクロシートのみが対象の場合() throws ExcelHandlingException {
         BookLoader testee = BookLoaderWithPoiUserApi.of(EnumSet.of(SheetType.MACRO_SHEET));
         
-        // TODO: .xls 形式の場合はシート種別を見分けられない。
+        // FIXME: [No.1 シート識別不正 - usermodel] .xls 形式の場合はシート種別を見分けられない。
         // どうしようもないのかしら？？
         assertEquals(
                 List.of("A1_ワークシート", "A2_グラフ", "A3_ダイアログ", "A4_マクロ",
                         "B1_ワークシート", "B2_グラフ", "B3_ダイアログ", "B4_マクロ"),
                 testee.loadSheetNames(test1_xls));
         
-        // TODO: どうやら次の２つのバグが重なっているっぽい。
+        // FIXME: [No.1 シート識別不正 - usermodel] どうやら次の２つのバグが重なっているっぽい。
         //   ・.xlsm 形式のExcelブックからは「4_マクロ」を取得できない
         //   ・「1_ワークシート」と「4_マクロ」を判別できない
         // どうしようもないのかしら？？
@@ -203,7 +203,7 @@ class BookLoaderWithPoiUserApiTest {
                         "B1_ワークシート"),
                 testee.loadSheetNames(test1_xlsm));
         
-        // TODO: どうやら次の２つの事情によりこうなるっぽい。
+        // FIXME: [No.1 シート識別不正 - usermodel] どうやら次の２つの事情によりこうなるっぽい。
         //   ・マクロ無しのブックのため「x4_マクロ」が通常のワークシートとして保存された
         //   ・「1_ワークシート」と「4_マクロ」を判別できない
         // どうしようもないのかしら？？

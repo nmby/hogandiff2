@@ -245,7 +245,7 @@ public class HSSFSheetLoaderWithPoiEventApi implements SheetLoader<String> {
                 WSBoolRecord wsbRec = (WSBoolRecord) record;
                 
                 if (wsbRec.getDialog()) {
-                    // TODO: ダイアログシートも何故か getDialog() == false が返されるっぽい。
+                    // FIXME: [No.1 シート識別不正 - HSSF] ダイアログシートも何故か getDialog() == false が返されるっぽい。
                     throw new UnsupportedOperationException(
                             "ダイアログシートはサポートされません。");
                 }
@@ -345,7 +345,7 @@ public class HSSFSheetLoaderWithPoiEventApi implements SheetLoader<String> {
                 }
                 
                 @SuppressWarnings("deprecation")
-                // TODO: これが deprecated なら、どうすりゃいいのさ...
+                // FIXME: [No.91 内部実装改善] これが deprecated なら、どうすりゃいいのさ...
                 CellType type = CellType.forInt(fRec.getCachedResultType());
                 
                 switch (type) {
@@ -378,7 +378,7 @@ public class HSSFSheetLoaderWithPoiEventApi implements SheetLoader<String> {
                 }
                 
             } else {
-                // TODO: 数式文字列もサポートできるようにする
+                // FIXME: [No.4 数式サポート改善] 数式文字列もサポートできるようにする
                 throw new UnsupportedOperationException(
                         "数式文字列の抽出はサポートされません。");
             }

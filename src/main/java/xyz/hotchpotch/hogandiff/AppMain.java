@@ -26,12 +26,12 @@ import xyz.hotchpotch.hogandiff.util.Settings;
  *
  * @author nmby
  */
-public class MainApp extends Application {
+public class AppMain extends Application {
     
     // [static members] ********************************************************
     
     /** このアプリケーションのバージョン */
-    private static final String VERSION = "v0.5.1";
+    private static final String VERSION = "v0.6.0";
     
     /** プロパティファイルの相対パス */
     private static final Path APP_PROP_PATH = Path.of("hogandiff.properties");
@@ -92,7 +92,7 @@ public class MainApp extends Application {
     
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("MainView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("GuiView.fxml"));
         Parent root = loader.load();
         Image icon = new Image(getClass().getResourceAsStream("favicon.png"));
         primaryStage.getIcons().add(icon);
@@ -101,7 +101,7 @@ public class MainApp extends Application {
         primaryStage.setMinWidth(500);
         primaryStage.setMinHeight(450);
         
-        MainController controller = loader.getController();
+        GuiController controller = loader.getController();
         Settings settings = arrangeSettings();
         controller.applySettings(settings);
         
@@ -119,9 +119,9 @@ public class MainApp extends Application {
             Settings.Builder builder = Settings.builder(properties, keysToBeSaved);
             
             // 2. アプリケーション実行時引数から設定を抽出する。
-            Optional<Settings> fromArgs = ArgsParser.parseArgs(getParameters().getRaw());
+            Optional<Settings> fromArgs = AppArgsParser.parseArgs(getParameters().getRaw());
             if (!getParameters().getRaw().isEmpty() && fromArgs.isEmpty()) {
-                System.err.println(ArgsParser.USAGE);
+                System.err.println(AppArgsParser.USAGE);
             }
             
             // 3. アプリケーション実行時引数から設定を抽出できた場合は、
