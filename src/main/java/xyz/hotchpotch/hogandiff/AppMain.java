@@ -37,7 +37,6 @@ public class AppMain extends Application {
     private static final Path APP_PROP_PATH = Path.of("hogandiff.properties");
     
     /** プロパティファイルに記録すべき設定項目 */
-    // FIXME: [No.91 内部実装改善] settings周りの実装が不細工すぎるので改善する
     public static final Set<Settings.Key<?>> keysToBeSaved = Set.of(
             SettingKeys.CONSIDER_ROW_GAPS,
             SettingKeys.CONSIDER_COLUMN_GAPS,
@@ -46,20 +45,13 @@ public class AppMain extends Application {
             AppSettingKeys.SHOW_RESULT_TEXT,
             AppSettingKeys.EXIT_WHEN_FINISHED);
     
-    private static Settings settings;
-    
     /**
      * このアプリケーションのエントリポイントです。<br>
      * 
      * @param args アプリケーション実行時引数
      */
     public static void main(String[] args) {
-        settings = arrangeSettings(args);
-        if (settings.containsKey(AppSettingKeys.CUI_MODE) && settings.get(AppSettingKeys.CUI_MODE)) {
-            // TODO: coding
-        } else {
-            launch(args);
-        }
+        launch(args);
     }
     
     /**
@@ -96,18 +88,39 @@ public class AppMain extends Application {
         }
     }
     
-    // FIXME: [No.91 内部実装改善] settings周りの実装が不細工すぎるので改善する
-    private static Settings arrangeSettings(String[] args) {
-        assert args != null;
+    // [instance members] ******************************************************
+    
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("GuiView.fxml"));
+        Parent root = loader.load();
+        Image icon = new Image(getClass().getResourceAsStream("favicon.png"));
+        primaryStage.getIcons().add(icon);
+        primaryStage.setTitle("方眼Diff  -  " + VERSION);
+        primaryStage.setScene(new Scene(root, 500, 430));
+        primaryStage.setMinWidth(500);
+        primaryStage.setMinHeight(450);
         
+        GuiController controller = loader.getController();
+        Settings settings = arrangeSettings();
+        controller.applySettings(settings);
+        
+        primaryStage.show();
+        
+        if (controller.isReady()) {
+            controller.execute();
+        }
+    }
+    
+    private Settings arrangeSettings() {
         try {
             // 1. プロパティファイルから設定を抽出する。
             Properties properties = loadProperties();
             Settings.Builder builder = Settings.builder(properties, keysToBeSaved);
             
             // 2. アプリケーション実行時引数から設定を抽出する。
-            Optional<Settings> fromArgs = AppArgsParser.parseArgs(args);
-            if (0 < args.length && fromArgs.isEmpty()) {
+            Optional<Settings> fromArgs = AppArgsParser.parseArgs(getParameters().getRaw());
+            if (!getParameters().getRaw().isEmpty() && fromArgs.isEmpty()) {
                 System.err.println(AppArgsParser.USAGE);
             }
             
@@ -123,29 +136,6 @@ public class AppMain extends Application {
         } catch (RuntimeException e) {
             // 何らかの実行時例外が発生した場合は空の設定を返すことにする。
             return Settings.builder().build();
-        }
-    }
-    
-    // [instance members] ******************************************************
-    
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("GuiView.fxml"));
-        Parent root = loader.load();
-        Image icon = new Image(getClass().getResourceAsStream("favicon.png"));
-        primaryStage.getIcons().add(icon);
-        primaryStage.setTitle("方眼Diff  -  " + VERSION);
-        primaryStage.setScene(new Scene(root, 500, 430));
-        primaryStage.setMinWidth(500);
-        primaryStage.setMinHeight(450);
-        
-        GuiController controller = loader.getController();
-        controller.applySettings(settings);
-        
-        primaryStage.show();
-        
-        if (controller.isReady()) {
-            controller.execute();
         }
     }
 }

@@ -334,7 +334,6 @@ public class GuiController {
      * @param settings 設定
      * @throws NullPointerException {@code settings} が {@code null} の場合
      */
-    // FIXME: [No.91 内部実装改善] settings周りの実装が不細工すぎるので改善する
     public void applySettings(Settings settings) {
         Objects.requireNonNull(settings, "settings");
         
@@ -430,10 +429,11 @@ public class GuiController {
         event.consume();
     }
     
-    // FIXME: [No.91 内部実装改善] settings周りの実装が不細工すぎるので改善する
     private Settings gatherSettings(Set<Settings.Key<?>> targets) {
         Settings.Builder builder = Settings.builder();
         
+        // なんかもうちょいスマートに出来そうな気もするけど。。。
+        // このクラスはやっつけで良いやと思ってしまう。。。
         if (targets == null || targets.contains(AppSettingKeys.CURR_MENU)) {
             builder.set(AppSettingKeys.CURR_MENU, menu.getValue());
         }
@@ -508,7 +508,7 @@ public class GuiController {
         
         isRunning.set(true);
         
-        Task<Void> task = GuiTask.of(settings, Factory.basicFactoryOf());
+        Task<Void> task = AppTask.of(settings, Factory.basicFactoryOf());
         progressReport.progressProperty().bind(task.progressProperty());
         textReport.textProperty().bind(task.messageProperty());
         ExecutorService executor = Executors.newSingleThreadExecutor();
