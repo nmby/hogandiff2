@@ -29,12 +29,12 @@ public class AppArgsParser {
             + "方眼Diff.exe bookPath1 bookPath2 <OPTIONS>" + BR
             + BR
             + "<OPTIONS>" + BR
-            + "    --consider-row-gaps     [true|false]" + BR
-            + "    --consider-column-gaps  [true|false]" + BR
-            + "    --compare-on-formulas   [true|false]" + BR
-            + "    --show-painted-sheets   [true|false]" + BR
-            + "    --show-result-text      [true|false]" + BR
-            + "    --exit-when-finished    [true|false]" + BR
+            + "    --consider-row-gaps=[true|false]    : default value is true" + BR
+            + "    --consider-column-gaps=[true|false] : default value is false" + BR
+            + "    --compare-on-formulas=[true|false]  : default value is false" + BR
+            + "    --show-painted-sheets=[true|false]  : default value is true" + BR
+            + "    --show-result-text=[true|false]     : default value is true" + BR
+            + "    --exit-when-finished=[true|false]   : default value is false" + BR
             + BR;
     
     private static final Map<String, Key<Boolean>> OPTIONS = Map.of(
@@ -83,16 +83,15 @@ public class AppArgsParser {
             // オプションのパース
             Deque<String> remainingParams = new ArrayDeque<>(args.subList(2, args.size()));
             Map<String, Key<Boolean>> remainingOptions = new HashMap<>(OPTIONS);
-            while (2 <= remainingParams.size() && !remainingOptions.isEmpty()) {
-                String opt = remainingParams.removeFirst();
-                if (!remainingOptions.containsKey(opt)) {
+            while (!remainingParams.isEmpty() && !remainingOptions.isEmpty()) {
+                String[] keyValue = remainingParams.removeFirst().split("=", 2);
+                if (!remainingOptions.containsKey(keyValue[0])) {
                     return Optional.empty();
                 }
-                String value = remainingParams.removeFirst().toLowerCase();
-                if (!"true".equals(value) && !"false".equals(value)) {
+                if (!"true".equals(keyValue[1]) && !"false".equals(keyValue[1])) {
                     return Optional.empty();
                 }
-                builder.set(remainingOptions.remove(opt), Boolean.valueOf(value));
+                builder.set(remainingOptions.remove(keyValue[0]), Boolean.valueOf(keyValue[1]));
             }
             
             // 解析不能なパラメータが残っている場合はエラー（解析失敗）とする。
