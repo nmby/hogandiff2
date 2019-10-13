@@ -239,8 +239,8 @@ public class XSSFBookPainterWithStax implements BookPainter {
         copyFile(srcBookPath, dstBookPath);
         
         // 2. 対象のExcelファイルをZipファイルとして扱い各種処理を行う。
-        try (FileSystem inFs = FileSystems.newFileSystem(srcBookPath, null);
-                FileSystem outFs = FileSystems.newFileSystem(dstBookPath, null)) {
+        try (FileSystem inFs = FileSystems.newFileSystem(srcBookPath);
+                FileSystem outFs = FileSystems.newFileSystem(dstBookPath)) {
             
             // 2-1. xl/sharedStrings.xml エントリに対する処理
             processSharedStringsEntry(inFs, outFs);

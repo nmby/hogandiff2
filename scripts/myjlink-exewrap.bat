@@ -4,9 +4,9 @@ chcp 65001
 
 set VERSION=0.6.0
 
-set JLINK_CMD=c:\pleiades_201906\java\12\bin\jlink
+set JLINK_CMD=c:\pleiades_201909\java\13\bin\jlink
 
-set MODULE_PATH_JRE=C:\pleiades_201906\java\12\jmods
+set MODULE_PATH_JRE=C:\pleiades_201909\java\13\jmods
 set MODULE_PATH_JAVAFX=C:\Users\ya_na\OneDrive\UserLibs\javafx-jmods-13
 
 set TARGET_MODULES=java.base,java.desktop,java.xml,javafx.base,javafx.controls,javafx.fxml,javafx.graphics
