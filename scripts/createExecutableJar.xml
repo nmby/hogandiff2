@@ -26,6 +26,7 @@
 		<mkdir dir="${dir.product}/lib"/>
 		<copy file="${dir.pjhome}/README.md" todir="${dir.product}"/>
 		<copy file="${dir.pjhome}/LICENSE" todir="${dir.product}"/>
+		<copy file="${dir.buildfile}\方眼Diff.exe.vmoptions" todir="${dir.product}"/>
 		<copy file="${dir.userlib.poi-4.1.0}/LICENSE" todir="${dir.lib.poi}"/>
 		<copy file="${dir.userlib.poi-4.1.0}/NOTICE" todir="${dir.lib.poi}"/>
 		<copy file="${dir.userlib.poi-4.1.0}/poi-4.1.0.jar" todir="${dir.lib.poi}"/>
