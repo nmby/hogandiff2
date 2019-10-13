@@ -321,7 +321,7 @@ public class GuiController {
         
         linkToWebSite.setOnAction(event -> {
             try {
-                Desktop.getDesktop().browse(URI.create("http://hogandiff.hotchpotch.xyz/"));
+                Desktop.getDesktop().browse(URI.create("https://hogandiff.hotchpotch.xyz/"));
             } catch (Exception e) {
                 // nop
             }

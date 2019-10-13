@@ -209,6 +209,7 @@ public class PoiUtil {
             style.setLeftBorderColor(automatic);
             style.setRightBorderColor(automatic);
             // FIXME: [No.3 着色関連] 斜めの罫線に対する処理が必要
+            // 参考：http://higehige0.blog.fc2.com/blog-entry-65.html
             
             // パターンは残したまま、背景色＝白、前景色＝黒にする
             if (style.getFillPattern() == FillPatternType.SOLID_FOREGROUND) {
@@ -258,6 +259,7 @@ public class PoiUtil {
             style.setLeftBorderColor(automatic);
             style.setRightBorderColor(automatic);
             // FIXME: [No.3 着色関連] 斜めの罫線に対する処理が必要
+            // 参考：http://higehige0.blog.fc2.com/blog-entry-65.html
             
             // パターンは残したまま、背景色＝白、前景色＝黒にする
             if (style.getFillPattern() == FillPatternType.SOLID_FOREGROUND) {

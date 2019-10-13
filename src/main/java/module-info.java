@@ -6,6 +6,7 @@ module xyz.hotchpotch.hogandiff {
     requires javafx.fxml;
     requires javafx.graphics;
     requires poi;
+    requires poi.ooxml;
     
     opens xyz.hotchpotch.hogandiff to javafx.graphics, javafx.fxml;
 }
