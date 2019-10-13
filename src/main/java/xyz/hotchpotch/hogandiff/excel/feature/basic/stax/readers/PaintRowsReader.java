@@ -20,6 +20,7 @@ import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
 import xyz.hotchpotch.hogandiff.excel.feature.basic.stax.XSSFBookPainterWithStax.StylesManager;
+import xyz.hotchpotch.hogandiff.excel.util.StaxUtil;
 import xyz.hotchpotch.hogandiff.excel.util.StaxUtil.NONS_QNAME;
 import xyz.hotchpotch.hogandiff.excel.util.StaxUtil.QNAME;
 
@@ -96,12 +97,12 @@ public class PaintRowsReader extends BufferingReader {
         }
         
         XMLEvent event = source.peek();
-        if (event.isEndElement() && QNAME.SHEET_DATA.equals(event.asEndElement().getName())) {
+        if (StaxUtil.isEnd(event, QNAME.SHEET_DATA)) {
             targetRows.forEach(this::createRow);
             auto = true;
             return;
         }
-        if (!event.isStartElement() || !QNAME.ROW.equals(event.asStartElement().getName())) {
+        if (!StaxUtil.isStart(event, QNAME.ROW)) {
             // row 要素が現れるまで読み飛ばす。
             return;
         }

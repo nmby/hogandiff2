@@ -22,6 +22,7 @@ import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
 import xyz.hotchpotch.hogandiff.excel.feature.basic.stax.XSSFBookPainterWithStax.StylesManager;
+import xyz.hotchpotch.hogandiff.excel.util.StaxUtil;
 import xyz.hotchpotch.hogandiff.excel.util.StaxUtil.NONS_QNAME;
 import xyz.hotchpotch.hogandiff.excel.util.StaxUtil.QNAME;
 import xyz.hotchpotch.hogandiff.util.Pair;
@@ -121,7 +122,7 @@ public class PaintColumnsReader extends BufferingReader {
         }
         
         XMLEvent event = source.peek();
-        if (event.isStartElement() && QNAME.SHEET_DATA.equals(event.asStartElement().getName())) {
+        if (StaxUtil.isStart(event, QNAME.SHEET_DATA)) {
             // 元ファイルに cols 要素が存在しない場合は、
             // cols 要素を作成して着色列分の col 要素を追加する。
             buffer.add(eventFactory.createStartElement(QNAME.COLS, Collections.emptyIterator(), null));
@@ -130,7 +131,7 @@ public class PaintColumnsReader extends BufferingReader {
             auto = true;
             return;
         }
-        if (!event.isStartElement() || !QNAME.COL.equals(event.asStartElement().getName())) {
+        if (!StaxUtil.isStart(event, QNAME.COL)) {
             // col 要素が現れるまで読み飛ばす。
             return;
         }
@@ -159,7 +160,7 @@ public class PaintColumnsReader extends BufferingReader {
                 nextCol.clear();
                 
                 event = source.peek();
-                if (event.isStartElement() && QNAME.COL.equals(event.asStartElement().getName())) {
+                if (StaxUtil.isStart(event, QNAME.COL)) {
                     sourceRange = supplyCol(nextCol);
                 } else {
                     sourceRange = null;
@@ -211,7 +212,7 @@ public class PaintColumnsReader extends BufferingReader {
                 
                 targetRange = Pair.of(sourceRange.b() + 1, targetRange.b());
                 event = source.peek();
-                if (event.isStartElement() && QNAME.COL.equals(event.asStartElement().getName())) {
+                if (StaxUtil.isStart(event, QNAME.COL)) {
                     sourceRange = supplyCol(nextCol);
                 } else {
                     sourceRange = null;
@@ -228,7 +229,7 @@ public class PaintColumnsReader extends BufferingReader {
                 nextCol.clear();
                 
                 event = source.peek();
-                if (event.isStartElement() && QNAME.COL.equals(event.asStartElement().getName())) {
+                if (StaxUtil.isStart(event, QNAME.COL)) {
                     sourceRange = supplyCol(nextCol);
                 } else {
                     sourceRange = null;
@@ -267,7 +268,7 @@ public class PaintColumnsReader extends BufferingReader {
         do {
             event = source.nextEvent();
             nextCol.add(event);
-        } while (!event.isEndElement() || !QNAME.COL.equals(event.asEndElement().getName()));
+        } while (!StaxUtil.isEnd(event, QNAME.COL));
         
         return Pair.of(
                 Integer.parseInt(nextCol.getFirst().asStartElement()
