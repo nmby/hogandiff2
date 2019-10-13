@@ -42,6 +42,7 @@
   ├─ lib\
   │   └─ (多数のファイル群)
   ├─ 方眼Diff.exe
+  ├─ 方眼Diff.exe.vmoptions
   ├─ LICENSE
   └─ README.md
 ```
