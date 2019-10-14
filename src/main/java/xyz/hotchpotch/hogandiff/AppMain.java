@@ -94,6 +94,8 @@ public class AppMain extends Application {
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GuiView.fxml"));
         Parent root = loader.load();
+        String cssPath = getClass().getResource("application.css").toExternalForm();
+        root.getStylesheets().add(cssPath.replace(" ", "%20"));
         Image icon = new Image(getClass().getResourceAsStream("favicon.png"));
         primaryStage.getIcons().add(icon);
         primaryStage.setTitle("方眼Diff  -  " + VERSION);
