@@ -127,7 +127,6 @@ public class PaintRowsReader extends BufferingReader {
         } else {
             buffer.add(paintRow(rowStart));
             source.nextEvent();
-            targetRows.remove();
         }
     }
     
