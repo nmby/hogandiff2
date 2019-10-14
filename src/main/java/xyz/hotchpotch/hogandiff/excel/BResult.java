@@ -97,7 +97,7 @@ public class BResult<T> {
                     pair.isPresentB() ? "[" + pair.b() + "]" : "(なし)"))
                     .append(BR);
             if (pair.isPaired()) {
-                str.append(func.apply(results.get(pair)).indent(8)).append(BR);
+                str.append(func.apply(results.get(pair)).indent(8));
             }
             return str;
             

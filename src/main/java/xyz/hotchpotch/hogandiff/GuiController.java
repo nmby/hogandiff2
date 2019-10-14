@@ -321,7 +321,7 @@ public class GuiController {
         
         linkToWebSite.setOnAction(event -> {
             try {
-                Desktop.getDesktop().browse(URI.create("http://hogandiff.hotchpotch.xyz/"));
+                Desktop.getDesktop().browse(URI.create("https://hogandiff.hotchpotch.xyz/"));
             } catch (Exception e) {
                 // nop
             }
@@ -448,7 +448,7 @@ public class GuiController {
                 builder.set(AppSettingKeys.CURR_SHEET_NAME1, sheetName1.getValue());
             }
             if (targets == null || targets.contains(AppSettingKeys.CURR_SHEET_NAME2)) {
-                builder.set(AppSettingKeys.CURR_SHEET_NAME2, sheetName1.getValue());
+                builder.set(AppSettingKeys.CURR_SHEET_NAME2, sheetName2.getValue());
             }
         }
         if (targets == null || targets.contains(SettingKeys.CONSIDER_ROW_GAPS)) {

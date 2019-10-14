@@ -18,6 +18,7 @@ import javax.xml.stream.events.XMLEvent;
 
 import xyz.hotchpotch.hogandiff.excel.CellReplica;
 import xyz.hotchpotch.hogandiff.excel.feature.basic.stax.XSSFBookPainterWithStax.StylesManager;
+import xyz.hotchpotch.hogandiff.excel.util.StaxUtil;
 import xyz.hotchpotch.hogandiff.excel.util.StaxUtil.NONS_QNAME;
 import xyz.hotchpotch.hogandiff.excel.util.StaxUtil.QNAME;
 import xyz.hotchpotch.hogandiff.util.Pair;
@@ -98,7 +99,7 @@ public class PaintRedundantCellsReader extends BufferingReader {
             return;
         }
         XMLEvent event = source.peek();
-        if (!event.isStartElement() || !QNAME.C.equals(event.asStartElement().getName())) {
+        if (!StaxUtil.isStart(event, QNAME.C)) {
             return;
         }
         

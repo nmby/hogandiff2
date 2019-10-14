@@ -266,7 +266,7 @@ public class SaxUtil {
         Objects.requireNonNull(bookPath, "bookPath");
         CommonUtil.ifNotSupportedBookTypeThenThrow(SaxUtil.class, BookType.of(bookPath));
         
-        try (FileSystem fs = FileSystems.newFileSystem(bookPath, null)) {
+        try (FileSystem fs = FileSystems.newFileSystem(bookPath)) {
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser parser = factory.newSAXParser();
             
@@ -301,7 +301,7 @@ public class SaxUtil {
         Objects.requireNonNull(bookPath, "bookPath");
         CommonUtil.ifNotSupportedBookTypeThenThrow(SaxUtil.class, BookType.of(bookPath));
         
-        try (FileSystem fs = FileSystems.newFileSystem(bookPath, null)) {
+        try (FileSystem fs = FileSystems.newFileSystem(bookPath)) {
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser parser = factory.newSAXParser();
             

@@ -273,7 +273,7 @@ public class XSSFSheetLoaderWithSax implements SheetLoader<String> {
                     this.bookPath, bookPath));
         }
         
-        try (FileSystem fs = FileSystems.newFileSystem(bookPath, null)) {
+        try (FileSystem fs = FileSystems.newFileSystem(bookPath)) {
             
             if (!nameToInfo.containsKey(sheetName)) {
                 // 例外カスケードポリシーに従い、

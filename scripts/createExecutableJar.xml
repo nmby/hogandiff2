@@ -3,7 +3,7 @@
 	<!--this file was created by Eclipse Runnable JAR Export Wizard-->
 	<!--ANT 1.7 is required                                        -->
 	<!--define folder properties-->
-    <property name="app.version" value="0.6.0"/>
+    <property name="app.version" value="0.6.1"/>
 	<property name="dir.userlib" value="C:/Users/ya_na/OneDrive/UserLibs"/>
 	<property name="dir.userlib.poi-4.1.0" value="${dir.userlib}/poi-4.1.0"/>
 	<property name="dir.userlib.javafx-13" value="${dir.userlib}/javafx-sdk-13"/>
@@ -26,6 +26,7 @@
 		<mkdir dir="${dir.product}/lib"/>
 		<copy file="${dir.pjhome}/README.md" todir="${dir.product}"/>
 		<copy file="${dir.pjhome}/LICENSE" todir="${dir.product}"/>
+		<copy file="${dir.buildfile}\方眼Diff.exe.vmoptions" todir="${dir.product}"/>
 		<copy file="${dir.userlib.poi-4.1.0}/LICENSE" todir="${dir.lib.poi}"/>
 		<copy file="${dir.userlib.poi-4.1.0}/NOTICE" todir="${dir.lib.poi}"/>
 		<copy file="${dir.userlib.poi-4.1.0}/poi-4.1.0.jar" todir="${dir.lib.poi}"/>

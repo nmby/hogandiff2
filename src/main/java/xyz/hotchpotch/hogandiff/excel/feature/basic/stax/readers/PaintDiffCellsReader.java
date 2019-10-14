@@ -11,7 +11,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Queue;
 import java.util.Set;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.xml.namespace.QName;
@@ -24,6 +23,7 @@ import javax.xml.stream.events.XMLEvent;
 
 import xyz.hotchpotch.hogandiff.excel.CellReplica;
 import xyz.hotchpotch.hogandiff.excel.feature.basic.stax.XSSFBookPainterWithStax.StylesManager;
+import xyz.hotchpotch.hogandiff.excel.util.StaxUtil;
 import xyz.hotchpotch.hogandiff.excel.util.StaxUtil.NONS_QNAME;
 import xyz.hotchpotch.hogandiff.excel.util.StaxUtil.QNAME;
 
@@ -41,15 +41,6 @@ public class PaintDiffCellsReader<T> extends BufferingReader {
     // [static members] ********************************************************
     
     private static final XMLEventFactory eventFactory = XMLEventFactory.newFactory();
-    
-    private static final Predicate<XMLEvent> isCStart = ev -> ev.isStartElement()
-            && QNAME.C.equals(ev.asStartElement().getName());
-    
-    private static final Predicate<XMLEvent> isCEnd = ev -> ev.isEndElement()
-            && QNAME.C.equals(ev.asEndElement().getName());
-    
-    private static final Predicate<XMLEvent> isRowStart = ev -> ev.isStartElement()
-            && QNAME.ROW.equals(ev.asStartElement().getName());
     
     private static final Comparator<CellReplica<?>> cellSorter = (c1, c2) -> {
         if (c1.row() != c2.row()) {
@@ -133,7 +124,7 @@ public class PaintDiffCellsReader<T> extends BufferingReader {
             return;
         }
         XMLEvent event = source.peek();
-        if (!isRowStart.test(event)) {
+        if (!StaxUtil.isStart(event, QNAME.ROW)) {
             return;
         }
         
@@ -214,10 +205,10 @@ public class PaintDiffCellsReader<T> extends BufferingReader {
         Queue<Queue<XMLEvent>> sourceCs = new ArrayDeque<>();
         
         XMLEvent event = source.peek();
-        while (isCStart.test(event)) {
+        while (StaxUtil.isStart(event, QNAME.C)) {
             Queue<XMLEvent> events = new ArrayDeque<>();
             
-            while (!isCEnd.test(event)) {
+            while (!StaxUtil.isEnd(event, QNAME.C)) {
                 event = source.nextEvent();
                 events.add(event);
             }

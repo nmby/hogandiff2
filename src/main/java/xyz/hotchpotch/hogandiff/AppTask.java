@@ -243,7 +243,7 @@ public class AppTask<T> extends Task<Void> {
                 SResult<T> result = comparator.compare(cells1, cells2);
                 results.put(pair, result);
                 
-                str.append(result.getSummary().indent(8)).append(BR).append(BR);
+                str.append(result.getSummary().indent(8)).append(BR);
                 updateMessage(str.toString());
                 updateProgress(progressBefore + total * i / pairedPairs.size(), PROGRESS_MAX);
             }

@@ -1,6 +1,9 @@
 package xyz.hotchpotch.hogandiff.excel.util;
 
+import java.util.Objects;
+
 import javax.xml.namespace.QName;
+import javax.xml.stream.events.XMLEvent;
 
 /**
  * StAX (Streaming API for XML) と組み合わせて利用すると便利な機能を集めた
@@ -143,6 +146,36 @@ public class StaxUtil {
         
         private NONS_QNAME() {
         }
+    }
+    
+    /**
+     * 指定されたイベントが指定されたQNAMEの開始要素であるかを返します。<br>
+     * 
+     * @param event XMLイベント
+     * @param qName QNAME
+     * @return 指定されたイベントが指定されたQNAMEの開始要素である場合は {@code true}
+     * @throws NullPointerException {@code event}, {@code qName} のいずれかが {@code null} の場合
+     */
+    public static boolean isStart(XMLEvent event, QName qName) {
+        Objects.requireNonNull(event, "event");
+        Objects.requireNonNull(qName, "qName");
+        
+        return event.isStartElement() && qName.equals(event.asStartElement().getName());
+    }
+    
+    /**
+     * 指定されたイベントが指定されたQNAMEの終了要素であるかを返します。<br>
+     * 
+     * @param event XMLイベント
+     * @param qName QNAME
+     * @return 指定されたイベントが指定されたQNAMEの終了要素である場合は {@code true}
+     * @throws NullPointerException {@code event}, {@code qName} のいずれかが {@code null} の場合
+     */
+    public static boolean isEnd(XMLEvent event, QName qName) {
+        Objects.requireNonNull(event, "event");
+        Objects.requireNonNull(qName, "qName");
+        
+        return event.isEndElement() && qName.equals(event.asEndElement().getName());
     }
     
     // [instance members] ******************************************************

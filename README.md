@@ -25,7 +25,7 @@
 - 方眼Diffはシンプルで使いやすいことを最重視して設計されています。そのため、比較条件やレポート形式を細かく指定することはできません。
 - Excelは高機能なアプリケーションであり、世界中で様々な用途や方法で利用されています。方眼Diffは可能な限り正しく機能することを目指していますが、対応できない場合があります。
 
-詳細は[Webサイト](http://hogandiff.hotchpotch.xyz/)をご覧ください。
+詳細は[Webサイト](https://hogandiff.hotchpotch.xyz/)をご覧ください。
 
 ## インストール方法
 
@@ -42,6 +42,7 @@
   ├─ lib\
   │   └─ (多数のファイル群)
   ├─ 方眼Diff.exe
+  ├─ 方眼Diff.exe.vmoptions
   ├─ LICENSE
   └─ README.md
 ```
@@ -69,7 +70,7 @@
 ```
 
 各種オプションを指定することもできます。  
-詳細は[Webサイト](http://hogandiff.hotchpotch.xyz/)をご覧ください。
+詳細は[Webサイト](https://hogandiff.hotchpotch.xyz/)をご覧ください。
 
 ## 提供ライセンス
 
@@ -93,5 +94,5 @@
 ## 連絡先
 
 e-mail  : nmby@hotchpotch.xyz  
-website : http://xyz.hotchpotch.hogandiff/
+website : https://xyz.hotchpotch.hogandiff/
 

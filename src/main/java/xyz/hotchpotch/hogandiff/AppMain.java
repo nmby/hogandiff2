@@ -31,7 +31,7 @@ public class AppMain extends Application {
     // [static members] ********************************************************
     
     /** このアプリケーションのバージョン */
-    private static final String VERSION = "v0.6.0";
+    private static final String VERSION = "v0.6.1";
     
     /** プロパティファイルの相対パス */
     private static final Path APP_PROP_PATH = Path.of("hogandiff.properties");
@@ -94,6 +94,8 @@ public class AppMain extends Application {
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GuiView.fxml"));
         Parent root = loader.load();
+        String cssPath = getClass().getResource("application.css").toExternalForm();
+        root.getStylesheets().add(cssPath.replace(" ", "%20"));
         Image icon = new Image(getClass().getResourceAsStream("favicon.png"));
         primaryStage.getIcons().add(icon);
         primaryStage.setTitle("方眼Diff  -  " + VERSION);
